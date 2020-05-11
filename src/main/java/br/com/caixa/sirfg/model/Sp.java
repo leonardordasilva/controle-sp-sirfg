@@ -42,6 +42,8 @@ public class Sp {
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataPrd;
 
+    private String observacao;
+
     @Transient
     private List<String> SpList = new ArrayList<>();
 

@@ -96,6 +96,7 @@ $('document').ready(function () {
             $('#dataTqsEdit').val(sp.dataTqsFormatado);
             $('#dataHmpEdit').val(sp.dataHmpFormatado);
             $('#dataPrdEdit').val(sp.dataPrdFormatado);
+            $('#observacaoEdit').val(sp.observacao);
         });
 
         $('#editModal').modal();
@@ -137,6 +138,7 @@ $('document').ready(function () {
             $('#dataTqsEqualizar').val(sp.dataTqsFormatado);
             $('#dataHmpEqualizar').val(sp.dataHmpFormatado);
             $('#dataPrdEqualizar').val(sp.dataPrdFormatado);
+            $('#observacaoEqualizar').val(sp.observacao);
 
             $('#nomeSpEqualizar').text(sp.nome);
         });

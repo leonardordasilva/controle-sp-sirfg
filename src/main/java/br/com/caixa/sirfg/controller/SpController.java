@@ -169,7 +169,7 @@ public class SpController {
         sp.setDataTqs(sp.getDataDes());
         spService.update(sp);
 
-        redirectAttributes.addFlashAttribute("message", "SP equalizada com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "SP " + sp.getNome() + " equalizada com sucesso!");
         return "redirect:/listaDesTqs";
     }
 
@@ -178,7 +178,7 @@ public class SpController {
         sp.setDataHmp(sp.getDataTqs());
         spService.update(sp);
 
-        redirectAttributes.addFlashAttribute("message", "SP equalizada com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "SP " + sp.getNome() + " equalizada com sucesso!");
         return "redirect:/listaTqsHmp";
     }
 
@@ -187,7 +187,7 @@ public class SpController {
         sp.setDataPrd(sp.getDataHmp());
         spService.update(sp);
 
-        redirectAttributes.addFlashAttribute("message", "SP equalizada com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "SP " + sp.getNome() + " equalizada com sucesso!");
         return "redirect:/listaHmpPrd";
     }
 }
