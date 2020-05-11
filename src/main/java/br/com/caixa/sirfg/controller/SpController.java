@@ -112,8 +112,9 @@ public class SpController {
     @DeleteMapping
     @RequestMapping(value = "/excluir")
     public String delete(Sp sp, RedirectAttributes redirectAttributes) {
+        String nomeSp = sp.getNome();
         spService.delete(sp.getId());
-        redirectAttributes.addFlashAttribute("message", "SP " + sp.getNome() + "  excluída com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "SP " + nomeSp + "  excluída com sucesso!");
         return "redirect:/" + LISTA_SP;
     }
 

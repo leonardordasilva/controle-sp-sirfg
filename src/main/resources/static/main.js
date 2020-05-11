@@ -1,9 +1,4 @@
 $('document').ready(function () {
-    $(".nav li").click(function () {
-        $(".nav li").removeClass('active');
-        $(".nav li").addClass('active');
-    });
-
     $('input[name^="data"]').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
@@ -52,7 +47,8 @@ $('document').ready(function () {
         $(this).val('');
     });
 
-    $('#mainTable').dataTable({
+    $('#mainTable').DataTable({
+        "pagingType": "full_numbers",
         "language": {
             "sEmptyTable": "Nenhum registro encontrado",
             "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -99,7 +95,7 @@ $('document').ready(function () {
         $('#addModal').modal();
     });
 
-    $('#mainTable #editButton').on('click', function (event) {
+    $('#mainTable tbody').on('click', 'tr td a#editButton', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
 
@@ -116,32 +112,20 @@ $('document').ready(function () {
         $('#editModal').modal();
     });
 
-    $('#mainTable #deleteButton').on('click', function (event) {
+    $('#mainTable tbody').on('click', 'tr td a#deleteButton', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
 
         $.get(href, function (sp, status) {
             $('#idDelete').val(sp.id);
+            $('#nomeDelete').val(sp.nome);
             $('#nomeSpExcluir').text(sp.nome);
         });
 
         $('#deleteModal').modal();
     });
 
-    $('#deleteAllButton').on('click', function (event) {
-        event.preventDefault();
-        var href = $(this).attr('href');
-
-        $('#deleteAllModal #delAllRef').attr('href', href);
-        $('#deleteAllModal').modal();
-    });
-
-    $('#equalizarAllButton').on('click', function (event) {
-        event.preventDefault();
-        $('#equalizarAllModal').modal();
-    });
-
-    $('#mainTable #equalizarButton').on('click', function (event) {
+    $('#mainTable tbody').on('click', 'tr td a#equalizarButton', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
 
@@ -158,5 +142,18 @@ $('document').ready(function () {
         });
 
         $('#equalizarModal').modal();
+    });
+
+    $('#deleteAllButton').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+
+        $('#deleteAllModal #delAllRef').attr('href', href);
+        $('#deleteAllModal').modal();
+    });
+
+    $('#equalizarAllButton').on('click', function (event) {
+        event.preventDefault();
+        $('#equalizarAllModal').modal();
     });
 });
