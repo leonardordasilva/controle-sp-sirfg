@@ -6,18 +6,9 @@
 <head>
     <title>Controle de SPs - SIRFG</title>
 
-    <link href="/webjars/bootstrap/4.4.1/css/bootstrap.css" rel="stylesheet"/>
-    <script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap-validator/0.11.9/js/validator.js"></script>
-    <script type="text/javascript" src="../static/main.js" th:src="@{/main.js}"></script>
-
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
-
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link th:href="@{/css/datatables.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/daterangepicker.css}" rel="stylesheet" />
 
     <meta charset="UTF-8"/>
 </head>
@@ -47,7 +38,7 @@
                 <input type="hidden" class="form-control" id="ambiente" name="ambiente" th:value="${ambiente}">
 
                 <a href="#" class="btn btn-primary" id="equalizarAllButton">Equalizar todas SPs</a>
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#spNotaModal">Listar SPs para Nota de Release SPs</button>
+                <button th:if="${ambiente == 'tqsHmp' or ambiente == 'hmpPrd'}" type="button" class="btn btn-warning" data-toggle="modal" data-target="#spNotaModal">Listar SPs para Nota de Release</button>
             </div>
 
             <br/><br/>
@@ -56,6 +47,7 @@
                 <thead>
                 <tr>
                     <td>Nome</td>
+                    <td>Tipo</td>
                     <td th:text="${coluna1}"></td>
                     <td th:text="${coluna2}"></td>
                     <td>Ações</td>
@@ -64,6 +56,7 @@
 
                 <tr th:each="sp:${sps}">
                     <td th:text="${sp.nome}"></td>
+                    <td th:text="${sp.tipoObjeto.descricaoObjeto}"></td>
                     <td th:text="${sp.getValorColuna(valorColuna1)}"></td>
                     <td th:text="${sp.getValorColuna(valorColuna2)}"></td>
                     <td>
@@ -84,14 +77,50 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table id="spNotaTable" class="table table-striped">
+                    <table th:if="${!spsNr.empty}" id="spNotaTable" class="table table-striped">
                         <thead>
                         <tr>
-                            <td>Nome</td>
+                            <th>SPs</th>
                         </tr>
                         </thead>
 
-                        <tr th:each="sp:${sps}">
+                        <tr th:each="sp:${spsNr}">
+                            <td th:text="${sp.nome}"></td>
+                        </tr>
+                    </table>
+
+                    <table th:if="${!spsCargaNr.empty}" id="spCargaNotaTable" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>SPs de Carga</th>
+                        </tr>
+                        </thead>
+
+                        <tr th:each="sp:${spsCargaNr}">
+                            <td th:text="${sp.nome}"></td>
+                        </tr>
+                    </table>
+
+                    <table th:if="${!cobolNr.empty}" id="cobolNotaTable" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>COBOL</th>
+                        </tr>
+                        </thead>
+
+                        <tr th:each="sp:${cobolNr}">
+                            <td th:text="${sp.nome}"></td>
+                        </tr>
+                    </table>
+
+                    <table th:if="${!jclNr.empty}" id="jclNotaTable" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>JCL</th>
+                        </tr>
+                        </thead>
+
+                        <tr th:each="sp:${jclNr}">
                             <td th:text="${sp.nome}"></td>
                         </tr>
                     </table>
@@ -133,6 +162,7 @@
         <form th:action="@{${actionEqualizar}}" method="post">
             <input type="hidden" id="idEqualizar" name="id" />
             <input type="hidden" id="nomeEqualizar" name="nome" />
+            <input type="hidden" id="tipoObjetoEqualizar" name="tipoObjeto" />
             <input type="hidden" id="dataDesEqualizar" name="dataDes" />
             <input type="hidden" id="dataTqsEqualizar" name="dataTqs" />
             <input type="hidden" id="dataHmpEqualizar" name="dataHmp" />
@@ -160,4 +190,12 @@
     </div>
 </section>
 </body>
+
+<script type="text/javascript" src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" src="../static/js/validator.js" th:src="@{/js/validator.js}"></script>
+<script type="text/javascript" src="../static/js/datatables.min.js" th:src="@{/js/datatables.min.js}"></script>
+<script type="text/javascript" src="../static/js/moment.min.js" th:src="@{/js/moment.min.js}"></script>
+<script type="text/javascript" src="../static/js/daterangepicker.min.js" th:src="@{/js/daterangepicker.min.js}"></script>
+<script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 </html>

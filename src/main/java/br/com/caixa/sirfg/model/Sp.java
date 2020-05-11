@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,6 +30,10 @@ public class Sp {
 
     @NotNull
     private String nome;
+
+    @Enumerated
+    @NotNull
+    private TipoObjetoEnum tipoObjeto;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataDes;
@@ -92,38 +97,6 @@ public class Sp {
         }
 
         return "";
-    }
-
-    public static List<Sp> montarListaSp(List<String> spList) {
-        List<Sp> response = new ArrayList<>();
-
-        Sp sp = new Sp();
-        sp.setId(Long.valueOf(spList.get(0).substring(6)));
-        sp.setNome(spList.get(1).trim().substring(5));
-
-        String data = spList.get(2).trim().substring(8);
-        if (!data.equalsIgnoreCase("null")) {
-            sp.setDataDes(LocalDateTime.parse(data));
-        }
-
-        data = spList.get(3).trim().substring(8);
-        if (!data.equalsIgnoreCase("null")) {
-            sp.setDataTqs(LocalDateTime.parse(data));
-        }
-
-        data = spList.get(4).trim().substring(8);
-        if (!data.equalsIgnoreCase("null")) {
-            sp.setDataHmp(LocalDateTime.parse(data));
-        }
-
-        data = spList.get(5).trim().substring(8);
-        if (!data.equalsIgnoreCase("null")) {
-            sp.setDataPrd(LocalDateTime.parse(data));
-        }
-
-        response.add(sp);
-
-        return response;
     }
 
     private DateTimeFormatter getDateTimeFormatter() {

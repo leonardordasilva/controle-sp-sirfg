@@ -2,6 +2,7 @@ package br.com.caixa.sirfg.controller;
 
 import br.com.caixa.sirfg.model.AmbienteEnum;
 import br.com.caixa.sirfg.model.Sp;
+import br.com.caixa.sirfg.model.TipoObjetoEnum;
 import br.com.caixa.sirfg.service.SpService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +24,9 @@ public class SpController {
     public static final String TITULO_DES_TQS = "Lista de SPs diferentes em DES e TQS";
     public static final String TITULO_TQS_HMP = "Lista de SPs diferentes em TQS e HMP";
     public static final String TITULO_HMP_PRD = "Lista de SPs diferentes em HMP e PRD";
+    public static final String REDIRECT_LISTA_DES_TQS = "redirect:/listaDesTqs";
+    public static final String REDIRECT_LISTA_TQS_HMP = "redirect:/listaTqsHmp";
+    public static final String REDIRECT_LISTA_HMP_PRD = "redirect:/listaHmpPrd";
 
     private final SpService spService;
 
@@ -29,16 +34,23 @@ public class SpController {
         this.spService = spService;
     }
 
+    private List<Sp> sps = new ArrayList<>();
+    private List<Sp> spsNr = new ArrayList<>();
+    private List<Sp> spsCargaNr = new ArrayList<>();
+    private List<Sp> cobolNr = new ArrayList<>();
+    private List<Sp> jclNr = new ArrayList<>();
+    private List<Sp> spConverterList = new ArrayList<>();
+
     @PostMapping("/adicionar")
     public String create(Sp sp, RedirectAttributes redirectAttributes) {
         spService.create(sp);
-        redirectAttributes.addFlashAttribute("message", "SP cadastrada com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "SP " + sp.getNome() + " cadastrada com sucesso!");
         return "redirect:/" + LISTA_SP;
     }
 
     @RequestMapping("/listaSp")
     public String findAll(Model model) {
-        List<Sp> sps = spService.findAll();
+        sps = spService.findAll();
         model.addAttribute("sps", sps);
 
         return "sp/listaCompleta";
@@ -46,9 +58,13 @@ public class SpController {
 
     @RequestMapping("/listaDesTqs")
     public String findAllDesTqs(Model model) {
-        List<Sp> sps = spService.findAllDesTqs();
+        sps = spService.findAllDesTqs();
 
         model.addAttribute("sps", sps);
+        model.addAttribute("spsNr", spsNr);
+        model.addAttribute("spsCargaNr", spsCargaNr);
+        model.addAttribute("cobolNr", cobolNr);
+        model.addAttribute("jclNr", jclNr);
         model.addAttribute("titulo", TITULO_DES_TQS);
         model.addAttribute("ambiente", "desTqs");
         model.addAttribute("actionEqualizarAll", "/equalizarAll/desTqs");
@@ -63,9 +79,15 @@ public class SpController {
 
     @RequestMapping("/listaTqsHmp")
     public String findAllTqsHmp(Model model) {
-        List<Sp> sps = spService.findAllTqsHmp();
+        sps = spService.findAllTqsHmp();
+
+        agruparSps();
 
         model.addAttribute("sps", sps);
+        model.addAttribute("spsNr", spsNr);
+        model.addAttribute("spsCargaNr", spsCargaNr);
+        model.addAttribute("cobolNr", cobolNr);
+        model.addAttribute("jclNr", jclNr);
         model.addAttribute("titulo", TITULO_TQS_HMP);
         model.addAttribute("ambiente", "tqsHmp");
         model.addAttribute("actionEqualizarAll", "/equalizarAll/tqsHmp");
@@ -78,11 +100,19 @@ public class SpController {
         return "sp/" + LISTA_DIFERENCAS;
     }
 
+
+
     @RequestMapping("/listaHmpPrd")
     public String findAllHmpPrd(Model model) {
-        List<Sp> sps = spService.findAllHmpPrd();
+        sps = spService.findAllHmpPrd();
+
+        agruparSps();
 
         model.addAttribute("sps", sps);
+        model.addAttribute("spsNr", spsNr);
+        model.addAttribute("spsCargaNr", spsCargaNr);
+        model.addAttribute("cobolNr", cobolNr);
+        model.addAttribute("jclNr", jclNr);
         model.addAttribute("titulo", TITULO_HMP_PRD);
         model.addAttribute("ambiente", "hmpPrd");
         model.addAttribute("actionEqualizarAll", "/equalizarAll/hmpPrd");
@@ -128,7 +158,7 @@ public class SpController {
 
     @PostMapping(value = "/equalizarAll/desTqs")
     public String equalizarAllDesTqs(Sp wrapper, RedirectAttributes redirectAttributes) {
-        List<Sp> spConverterList = Sp.montarListaSp(wrapper.getSpList());
+        spConverterList = spService.montarListaSp(wrapper.getSpList());
 
         for (Sp sp : spConverterList) {
             sp.setDataTqs(sp.getDataDes());
@@ -136,12 +166,12 @@ public class SpController {
         }
 
         redirectAttributes.addFlashAttribute("message", "SPs equalizadas com sucesso!");
-        return "redirect:/listaDesTqs";
+        return REDIRECT_LISTA_DES_TQS;
     }
 
     @PostMapping(value = "/equalizarAll/tqsHmp")
     public String equalizarAllTqsHmp(Sp wrapper, RedirectAttributes redirectAttributes) {
-        List<Sp> spConverterList = Sp.montarListaSp(wrapper.getSpList());
+        spConverterList = spService.montarListaSp(wrapper.getSpList());
 
         for (Sp sp : spConverterList) {
             sp.setDataHmp(sp.getDataTqs());
@@ -149,12 +179,12 @@ public class SpController {
         }
 
         redirectAttributes.addFlashAttribute("message", "SPs equalizadas com sucesso!");
-        return "redirect:/listaTqsHmp";
+        return REDIRECT_LISTA_TQS_HMP;
     }
 
     @PostMapping(value = "/equalizarAll/hmpPrd")
     public String equalizarAllHmpPrd(Sp wrapper, RedirectAttributes redirectAttributes) {
-        List<Sp> spConverterList = Sp.montarListaSp(wrapper.getSpList());
+        spConverterList = spService.montarListaSp(wrapper.getSpList());
 
         for (Sp sp : spConverterList) {
             sp.setDataPrd(sp.getDataHmp());
@@ -162,7 +192,7 @@ public class SpController {
         }
 
         redirectAttributes.addFlashAttribute("message", "SPs equalizadas com sucesso!");
-        return "redirect:/listaHmpPrd";
+        return REDIRECT_LISTA_HMP_PRD;
     }
 
     @PostMapping(value = "/equalizar/desTqs")
@@ -171,7 +201,7 @@ public class SpController {
         spService.update(sp);
 
         redirectAttributes.addFlashAttribute("message", "SP " + sp.getNome() + " equalizada com sucesso!");
-        return "redirect:/listaDesTqs";
+        return REDIRECT_LISTA_DES_TQS;
     }
 
     @PostMapping(value = "/equalizar/tqsHmp")
@@ -180,7 +210,7 @@ public class SpController {
         spService.update(sp);
 
         redirectAttributes.addFlashAttribute("message", "SP " + sp.getNome() + " equalizada com sucesso!");
-        return "redirect:/listaTqsHmp";
+        return REDIRECT_LISTA_TQS_HMP;
     }
 
     @PostMapping(value = "/equalizar/hmpPrd")
@@ -189,6 +219,13 @@ public class SpController {
         spService.update(sp);
 
         redirectAttributes.addFlashAttribute("message", "SP " + sp.getNome() + " equalizada com sucesso!");
-        return "redirect:/listaHmpPrd";
+        return REDIRECT_LISTA_HMP_PRD;
+    }
+
+    private void agruparSps() {
+        spsNr = spService.agruparSps(spsNr, sps, TipoObjetoEnum.SP);
+        spsCargaNr = spService.agruparSps(spsCargaNr, sps, TipoObjetoEnum.SP_CARGA);
+        cobolNr = spService.agruparSps(cobolNr, sps, TipoObjetoEnum.COBOL);
+        jclNr = spService.agruparSps(jclNr, sps, TipoObjetoEnum.JCL);
     }
 }

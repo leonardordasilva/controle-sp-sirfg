@@ -5,21 +5,11 @@
 
 <head>
     <title>Controle de SPs - SIRFG</title>
-
-    <link href="/webjars/bootstrap/4.4.1/css/bootstrap.css" rel="stylesheet"/>
-    <script type="text/javascript" src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap-validator/0.11.9/js/validator.js"></script>
-    <script type="text/javascript" src="../static/main.js" th:src="@{/main.js}"></script>
-
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
-
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
-
     <meta charset="UTF-8"/>
+
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link th:href="@{/css/datatables.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/daterangepicker.css}" rel="stylesheet" />
 </head>
 
 <body>
@@ -50,6 +40,7 @@
                 <thead>
                 <tr>
                     <td>Nome</td>
+                    <td>Tipo</td>
                     <td>Data versão DES</td>
                     <td>Data versão TQS</td>
                     <td>Data versão HMP</td>
@@ -60,6 +51,7 @@
 
                 <tr th:each="sp:${sps}">
                     <td th:text="${sp.nome}"></td>
+                    <td th:text="${sp.tipoObjeto.descricaoObjeto}"></td>
                     <td th:text="${sp.dataDesFormatado}"></td>
                     <td th:text="${sp.dataTqsFormatado}"></td>
                     <td th:text="${sp.dataHmpFormatado}"></td>
@@ -75,7 +67,7 @@
 
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true"
          data-toggle="validator">
-        <form th:action="@{/adicionar}" method="post">
+        <form id="formAdd" th:action="@{/adicionar}" method="post">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -88,6 +80,26 @@
                         <div class="form-group">
                             <label for="nome" class="col-form-label">Nome:</label>
                             <input type="text" class="form-control" id="nome" name="nome" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nome" class="col-form-label">Tipo de Objeto:</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipoObjeto" id="spAdd" value="SP" required>
+                                <label class="form-check-label" for="spAdd">SP</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipoObjeto" id="spCargaAdd" value="SP_CARGA">
+                                <label class="form-check-label" for="spCargaAdd">SP de Carga</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipoObjeto" id="cobolAdd" value="COBOL">
+                                <label class="form-check-label" for="cobolAdd">COBOL</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipoObjeto" id="jclAdd" value="JCL">
+                                <label class="form-check-label" for="jclAdd">JCL</label>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -112,7 +124,7 @@
 
                         <div class="form-group">
                             <label for="observacao" class="col-form-label">Observações:</label>
-                            <textarea rows="8" class="form-control" id="observacao" name="observacao"></textarea>
+                            <textarea rows="4" class="form-control" id="observacao" name="observacao"></textarea>
                         </div>
 
                     </div>
@@ -145,6 +157,26 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="nome" class="col-form-label">Tipo de Objeto:</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipoObjeto" id="SP" value="SP" required>
+                                <label class="form-check-label" for="SP">SP</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipoObjeto" id="SP_CARGA" value="SP_CARGA">
+                                <label class="form-check-label" for="SP_CARGA">SP de Carga</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipoObjeto" id="COBOL" value="COBOL">
+                                <label class="form-check-label" for="COBOL">COBOL</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipoObjeto" id="JCL" value="JCL">
+                                <label class="form-check-label" for="JCL">JCL</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="dataDesEdit" class="col-form-label">Data Versão DES:</label>
                             <input type="text" class="form-control" id="dataDesEdit" name="dataDes" required>
                         </div>
@@ -166,7 +198,7 @@
 
                         <div class="form-group">
                             <label for="observacaoEdit" class="col-form-label">Observações:</label>
-                            <textarea rows="8" class="form-control" id="observacaoEdit" name="observacao"></textarea>
+                            <textarea rows="4" class="form-control" id="observacaoEdit" name="observacao"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -225,4 +257,12 @@
     </div>
 </section>
 </body>
+
+<script type="text/javascript" src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" src="../static/js/validator.js" th:src="@{/js/validator.js}"></script>
+<script type="text/javascript" src="../static/js/datatables.min.js" th:src="@{/js/datatables.min.js}"></script>
+<script type="text/javascript" src="../static/js/moment.min.js" th:src="@{/js/moment.min.js}"></script>
+<script type="text/javascript" src="../static/js/daterangepicker.min.js" th:src="@{/js/daterangepicker.min.js}"></script>
+<script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 </html>

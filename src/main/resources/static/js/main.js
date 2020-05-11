@@ -83,15 +83,6 @@ $('document').ready(function () {
 
     $('#addSpButton').on('click', function (event) {
         event.preventDefault();
-
-        $('#idEdit').val("");
-        $('#nome').val("");
-        $('#dataDes').val("");
-        $('#dataTqs').val("");
-        $('#dataHmp').val("");
-        $('#dataPrd').val("");
-        $('#observacao').val("");
-
         $('#addModal').modal();
     });
 
@@ -100,8 +91,11 @@ $('document').ready(function () {
         var href = $(this).attr('href');
 
         $.get(href, function (sp, status) {
+            var tipoObjetoSelecionado = sp.tipoObjeto;
+
             $('#idEdit').val(sp.id);
             $('#nomeEdit').val(sp.nome);
+            $('#' + tipoObjetoSelecionado).prop('checked',true);
             $('#dataDesEdit').val(sp.dataDesFormatado);
             $('#dataTqsEdit').val(sp.dataTqsFormatado);
             $('#dataHmpEdit').val(sp.dataHmpFormatado);
@@ -132,6 +126,7 @@ $('document').ready(function () {
         $.get(href, function (sp, status) {
             $('#idEqualizar').val(sp.id);
             $('#nomeEqualizar').val(sp.nome);
+            $('#tipoObjetoEqualizar').val(sp.tipoObjeto);
             $('#dataDesEqualizar').val(sp.dataDesFormatado);
             $('#dataTqsEqualizar').val(sp.dataTqsFormatado);
             $('#dataHmpEqualizar').val(sp.dataHmpFormatado);
