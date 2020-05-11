@@ -1,13 +1,11 @@
 package br.com.caixa.sirfg.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import br.com.caixa.sirfg.model.Sp;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.caixa.sirfg.repository.SpRepository;
 import org.springframework.stereotype.Service;
 
-import br.com.caixa.sirfg.repository.SpRepository;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SpService {
@@ -39,5 +37,17 @@ public class SpService {
 
     public void deleteAll() {
         spRepository.deleteAll();
+    }
+
+    public List<Sp> findAllDesTqs() {
+        return spRepository.findAllDesTqs();
+    }
+
+    public List<Sp> findAllTqsHmp() {
+        return spRepository.findAllTqsHmp();
+    }
+
+    public List<Sp> findAllHmpPrd() {
+        return spRepository.findAllHmpPrd();
     }
 }

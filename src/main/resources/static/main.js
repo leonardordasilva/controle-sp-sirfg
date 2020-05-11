@@ -1,4 +1,9 @@
 $('document').ready(function () {
+    $(".nav li").click(function () {
+        $(".nav li").removeClass('active');
+        $(".nav li").addClass('active');
+    });
+
     $('input[name^="data"]').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
@@ -11,7 +16,7 @@ $('document').ready(function () {
         locale: {
             "format": "DD/MM/YYYY HH:mm",
             "applyLabel": "Aplicar",
-            "cancelLabel": "Cancelar",
+            "cancelLabel": "Limpar",
             "daysOfWeek": [
                 "Dom",
                 "Seg",
@@ -39,11 +44,11 @@ $('document').ready(function () {
         }
     });
 
-    $('input[name^="data"]').on('apply.daterangepicker', function(ev, picker) {
+    $('input[name^="data"]').on('apply.daterangepicker', function (ev, picker) {
         $(this).val(picker.startDate.format('DD/MM/YYYY HH:mm'));
     });
 
-    $('input[name^="data"]').on('cancel.daterangepicker', function(ev, picker) {
+    $('input[name^="data"]').on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
     });
 
@@ -80,7 +85,7 @@ $('document').ready(function () {
         }
     });
 
-    $('.table .btn-warning').on('click', function (event) {
+    $('#mainTable #editButton').on('click', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
 
@@ -96,17 +101,46 @@ $('document').ready(function () {
         $('#editModal').modal();
     });
 
-    $('.table #deleteButton').on('click', function (event) {
+    $('#mainTable #deleteButton').on('click', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
-        $('#deleteModal #delRef').attr('href', href);
+
+        $.get(href, function (sp, status) {
+            $('#idDelete').val(sp.id);
+            $('#nomeSpExcluir').text(sp.nome);
+        });
+
         $('#deleteModal').modal();
     });
 
     $('#deleteAllButton').on('click', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
+
         $('#deleteAllModal #delAllRef').attr('href', href);
         $('#deleteAllModal').modal();
+    });
+
+    $('#equalizarAllButton').on('click', function (event) {
+        event.preventDefault();
+        $('#equalizarAllModal').modal();
+    });
+
+    $('#mainTable #equalizarButton').on('click', function (event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+
+        $.get(href, function (sp, status) {
+            $('#idEqualizar').val(sp.id);
+            $('#nomeEqualizar').val(sp.nome);
+            $('#dataDesEqualizar').val(sp.dataDesFormatado);
+            $('#dataTqsEqualizar').val(sp.dataTqsFormatado);
+            $('#dataHmpEqualizar').val(sp.dataHmpFormatado);
+            $('#dataPrdEqualizar').val(sp.dataPrdFormatado);
+
+            $('#nomeSpEqualizar').text(sp.nome);
+        });
+
+        $('#equalizarModal').modal();
     });
 });
