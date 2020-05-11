@@ -85,6 +85,20 @@ $('document').ready(function () {
         }
     });
 
+    $('#addSpButton').on('click', function (event) {
+        event.preventDefault();
+
+        $('#idEdit').val("");
+        $('#nome').val("");
+        $('#dataDes').val("");
+        $('#dataTqs').val("");
+        $('#dataHmp').val("");
+        $('#dataPrd').val("");
+        $('#observacao').val("");
+
+        $('#addModal').modal();
+    });
+
     $('#mainTable #editButton').on('click', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
