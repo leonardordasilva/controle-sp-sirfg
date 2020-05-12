@@ -21,9 +21,9 @@ import java.util.Optional;
 public class SpController {
     public static final String LISTA_SP = "listaSp";
     public static final String LISTA_DIFERENCAS = "listaDiferencas";
-    public static final String TITULO_DES_TQS = "Lista de SPs diferentes em DES e TQS";
-    public static final String TITULO_TQS_HMP = "Lista de SPs diferentes em TQS e HMP";
-    public static final String TITULO_HMP_PRD = "Lista de SPs diferentes em HMP e PRD";
+    public static final String TITULO_DES_TQS = "Lista de Objetos diferentes em DES e TQS";
+    public static final String TITULO_TQS_HMP = "Lista de Objetos diferentes em TQS e HMP";
+    public static final String TITULO_HMP_PRD = "Lista de Objetos diferentes em HMP e PRD";
     public static final String REDIRECT_LISTA_DES_TQS = "redirect:/listaDesTqs";
     public static final String REDIRECT_LISTA_TQS_HMP = "redirect:/listaTqsHmp";
     public static final String REDIRECT_LISTA_HMP_PRD = "redirect:/listaHmpPrd";
@@ -44,7 +44,7 @@ public class SpController {
     @PostMapping("/adicionar")
     public String create(Sp sp, RedirectAttributes redirectAttributes) {
         spService.create(sp);
-        redirectAttributes.addFlashAttribute("message", "SP " + sp.getNome() + " cadastrada com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome() + " cadastrado com sucesso!");
         return "redirect:/" + LISTA_SP;
     }
 
@@ -100,8 +100,6 @@ public class SpController {
         return "sp/" + LISTA_DIFERENCAS;
     }
 
-
-
     @RequestMapping("/listaHmpPrd")
     public String findAllHmpPrd(Model model) {
         sps = spService.findAllHmpPrd();
@@ -135,7 +133,7 @@ public class SpController {
     @RequestMapping(value = "/atualizar")
     public String update(Sp sp, RedirectAttributes redirectAttributes) {
         spService.update(sp);
-        redirectAttributes.addFlashAttribute("message", "SP " + sp.getNome() + " atualizada com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome() + " atualizado com sucesso!");
         return "redirect:/" + LISTA_SP;
     }
 
@@ -144,7 +142,7 @@ public class SpController {
     public String delete(Sp sp, RedirectAttributes redirectAttributes) {
         String nomeSp = sp.getNome();
         spService.delete(sp.getId());
-        redirectAttributes.addFlashAttribute("message", "SP " + nomeSp + "  excluída com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objeto " + nomeSp + "  excluído com sucesso!");
         return "redirect:/" + LISTA_SP;
     }
 
@@ -152,7 +150,7 @@ public class SpController {
     @RequestMapping(value = "/deleteAll")
     public String deleteAll(RedirectAttributes redirectAttributes) {
         spService.deleteAll();
-        redirectAttributes.addFlashAttribute("message", "SPs excluídas com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objetos excluídos com sucesso!");
         return "redirect:/" + LISTA_SP;
     }
 
@@ -165,7 +163,7 @@ public class SpController {
             spService.update(sp);
         }
 
-        redirectAttributes.addFlashAttribute("message", "SPs equalizadas com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objetos equalizados com sucesso!");
         return REDIRECT_LISTA_DES_TQS;
     }
 
@@ -178,7 +176,7 @@ public class SpController {
             spService.update(sp);
         }
 
-        redirectAttributes.addFlashAttribute("message", "SPs equalizadas com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objetos equalizados com sucesso!");
         return REDIRECT_LISTA_TQS_HMP;
     }
 
@@ -191,7 +189,7 @@ public class SpController {
             spService.update(sp);
         }
 
-        redirectAttributes.addFlashAttribute("message", "SPs equalizadas com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objetos equalizados com sucesso!");
         return REDIRECT_LISTA_HMP_PRD;
     }
 
@@ -200,7 +198,7 @@ public class SpController {
         sp.setDataTqs(sp.getDataDes());
         spService.update(sp);
 
-        redirectAttributes.addFlashAttribute("message", "SP " + sp.getNome() + " equalizada com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome() + " equalizado com sucesso!");
         return REDIRECT_LISTA_DES_TQS;
     }
 
@@ -209,7 +207,7 @@ public class SpController {
         sp.setDataHmp(sp.getDataTqs());
         spService.update(sp);
 
-        redirectAttributes.addFlashAttribute("message", "SP " + sp.getNome() + " equalizada com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome() + " equalizado com sucesso!");
         return REDIRECT_LISTA_TQS_HMP;
     }
 
@@ -218,7 +216,7 @@ public class SpController {
         sp.setDataPrd(sp.getDataHmp());
         spService.update(sp);
 
-        redirectAttributes.addFlashAttribute("message", "SP " + sp.getNome() + " equalizada com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome() + " equalizado com sucesso!");
         return REDIRECT_LISTA_HMP_PRD;
     }
 
