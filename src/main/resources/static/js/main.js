@@ -2,7 +2,7 @@ $('document').ready(function () {
     $('input[name^="data"]').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
-        minYear: 1901,
+        minYear: 2000,
         maxYear: parseInt(moment().format('YYYY'), 10),
         timePicker: true,
         timePicker24Hour: true,
@@ -83,6 +83,7 @@ $('document').ready(function () {
 
     $('#addSpButton').on('click', function (event) {
         event.preventDefault();
+        $('#formAdd').trigger("reset");
         $('#addModal').modal();
     });
 
