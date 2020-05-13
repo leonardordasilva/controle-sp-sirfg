@@ -30,6 +30,10 @@ public enum TipoObjetoEnum {
         return valorObjeto;
     }
 
+    public String getCodigoObjeto() {
+        return codigoObjeto;
+    }
+
     public String getDescricaoObjeto() {
         return descricaoObjeto;
     }

@@ -34,18 +34,6 @@ public class SpService {
         return spRepository.findAllByNome(nomeObejto);
     }
 
-    public void update(Sp sp) {
-        spRepository.save(sp);
-    }
-
-    public void delete(Long Id) {
-        spRepository.deleteById(Id);
-    }
-
-    public void deleteAll() {
-        spRepository.deleteAll();
-    }
-
     public List<Sp> findAllDesTqs() {
         return spRepository.findAllDesTqs();
     }
@@ -58,6 +46,17 @@ public class SpService {
         return spRepository.findAllHmpPrd();
     }
 
+    public void update(Sp sp) {
+        spRepository.save(sp);
+    }
+
+    public void delete(Long Id) {
+        spRepository.deleteById(Id);
+    }
+
+    public void deleteAll() {
+        spRepository.deleteAll();
+    }
 
     public List<Sp> montarListaSp(List<String> spList) {
         List<Sp> response = new ArrayList<>();
@@ -105,6 +104,7 @@ public class SpService {
                 spRetorno.add(sp);
             }
         }
+
         return spRetorno;
     }
 }
