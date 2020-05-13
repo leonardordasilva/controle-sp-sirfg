@@ -37,6 +37,7 @@ public class SpController {
     private List<Sp> sps = new ArrayList<>();
     private List<Sp> spsNr = new ArrayList<>();
     private List<Sp> spsCargaNr = new ArrayList<>();
+    private List<Sp> bindNr = new ArrayList<>();
     private List<Sp> cobolNr = new ArrayList<>();
     private List<Sp> jclNr = new ArrayList<>();
     private List<Sp> spConverterList = new ArrayList<>();
@@ -61,10 +62,6 @@ public class SpController {
         sps = spService.findAllDesTqs();
 
         model.addAttribute("sps", sps);
-        model.addAttribute("spsNr", spsNr);
-        model.addAttribute("spsCargaNr", spsCargaNr);
-        model.addAttribute("cobolNr", cobolNr);
-        model.addAttribute("jclNr", jclNr);
         model.addAttribute("titulo", TITULO_DES_TQS);
         model.addAttribute("ambiente", "desTqs");
         model.addAttribute("actionEqualizarAll", "/equalizarAll/desTqs");
@@ -86,6 +83,7 @@ public class SpController {
         model.addAttribute("sps", sps);
         model.addAttribute("spsNr", spsNr);
         model.addAttribute("spsCargaNr", spsCargaNr);
+        model.addAttribute("bindNr", bindNr);
         model.addAttribute("cobolNr", cobolNr);
         model.addAttribute("jclNr", jclNr);
         model.addAttribute("titulo", TITULO_TQS_HMP);
@@ -109,6 +107,7 @@ public class SpController {
         model.addAttribute("sps", sps);
         model.addAttribute("spsNr", spsNr);
         model.addAttribute("spsCargaNr", spsCargaNr);
+        model.addAttribute("bindNr", bindNr);
         model.addAttribute("cobolNr", cobolNr);
         model.addAttribute("jclNr", jclNr);
         model.addAttribute("titulo", TITULO_HMP_PRD);
@@ -223,6 +222,7 @@ public class SpController {
     private void agruparSps() {
         spsNr = spService.agruparSps(spsNr, sps, TipoObjetoEnum.SP);
         spsCargaNr = spService.agruparSps(spsCargaNr, sps, TipoObjetoEnum.SP_CARGA);
+        bindNr = spService.agruparSps(bindNr, sps, TipoObjetoEnum.BIND);
         cobolNr = spService.agruparSps(cobolNr, sps, TipoObjetoEnum.COBOL);
         jclNr = spService.agruparSps(jclNr, sps, TipoObjetoEnum.JCL);
     }

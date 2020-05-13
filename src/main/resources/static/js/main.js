@@ -1,4 +1,39 @@
 $('document').ready(function () {
+    $('#mainTable').DataTable({
+        "pageLength": "100",
+        "pagingType": "full_numbers",
+        "language": {
+            "sEmptyTable": "Nenhum registro encontrado",
+            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sInfoThousands": ".",
+            "sLengthMenu": "_MENU_ resultados por página",
+            "sLoadingRecords": "Carregando...",
+            "sProcessing": "Processando...",
+            "sZeroRecords": "Nenhum registro encontrado",
+            "sSearch": "Pesquisar",
+            "oPaginate": {
+                "sNext": "Próximo",
+                "sPrevious": "Anterior",
+                "sFirst": "Primeiro",
+                "sLast": "Último"
+            },
+            "oAria": {
+                "sSortAscending": ": Ordenar colunas de forma ascendente",
+                "sSortDescending": ": Ordenar colunas de forma descendente"
+            },
+            "select": {
+                "rows": {
+                    "_": "Selecionado %d linhas",
+                    "0": "Nenhuma linha selecionada",
+                    "1": "Selecionado 1 linha"
+                }
+            }
+        }
+    });
+
     $('input[name^="data"]').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
@@ -47,44 +82,12 @@ $('document').ready(function () {
         $(this).val('');
     });
 
-    $('#mainTable').DataTable({
-        "pagingType": "full_numbers",
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado",
-            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoPostFix": "",
-            "sInfoThousands": ".",
-            "sLengthMenu": "_MENU_ resultados por página",
-            "sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...",
-            "sZeroRecords": "Nenhum registro encontrado",
-            "sSearch": "Pesquisar",
-            "oPaginate": {
-                "sNext": "Próximo",
-                "sPrevious": "Anterior",
-                "sFirst": "Primeiro",
-                "sLast": "Último"
-            },
-            "oAria": {
-                "sSortAscending": ": Ordenar colunas de forma ascendente",
-                "sSortDescending": ": Ordenar colunas de forma descendente"
-            },
-            "select": {
-                "rows": {
-                    "_": "Selecionado %d linhas",
-                    "0": "Nenhuma linha selecionada",
-                    "1": "Selecionado 1 linha"
-                }
-            }
-        }
-    });
-
     $('#addSpButton').on('click', function (event) {
         event.preventDefault();
         $('#formAdd').trigger("reset");
-        $('#addModal').modal();
+        $('#addModal').modal({
+            keyboard: true
+        });
     });
 
     $('#mainTable tbody').on('click', 'tr td a#editButton', function (event) {
@@ -104,7 +107,9 @@ $('document').ready(function () {
             $('#observacaoEdit').val(sp.observacao);
         });
 
-        $('#editModal').modal();
+        $('#editModal').modal({
+            keyboard: true
+        });
     });
 
     $('#mainTable tbody').on('click', 'tr td a#deleteButton', function (event) {
@@ -117,7 +122,9 @@ $('document').ready(function () {
             $('#nomeSpExcluir').text(sp.nome);
         });
 
-        $('#deleteModal').modal();
+        $('#deleteModal').modal({
+            keyboard: true
+        });
     });
 
     $('#mainTable tbody').on('click', 'tr td a#equalizarButton', function (event) {
@@ -137,7 +144,9 @@ $('document').ready(function () {
             $('#nomeSpEqualizar').text(sp.nome);
         });
 
-        $('#equalizarModal').modal();
+        $('#equalizarModal').modal({
+            keyboard: true
+        });
     });
 
     $('#deleteAllButton').on('click', function (event) {
@@ -145,11 +154,15 @@ $('document').ready(function () {
         var href = $(this).attr('href');
 
         $('#deleteAllModal #delAllRef').attr('href', href);
-        $('#deleteAllModal').modal();
+        $('#deleteAllModal').modal({
+            keyboard: true
+        });
     });
 
     $('#equalizarAllButton').on('click', function (event) {
         event.preventDefault();
-        $('#equalizarAllModal').modal();
+        $('#equalizarAllModal').modal({
+            keyboard: true
+        });
     });
 });

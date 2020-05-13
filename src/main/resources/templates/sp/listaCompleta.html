@@ -33,7 +33,7 @@
             <H2>Lista completa de Objetos</H2>
 
             <a href="#" class="btn btn-primary" id="addSpButton">Adicionar Objeto</a>
-            <a th:if="${!sps.empty}" th:href="@{/deleteAll}" class="btn btn-danger" id="deleteAllButton">Exluir todos os Objetos</a>
+            <!--<a th:if="${!sps.empty}" th:href="@{/deleteAll}" class="btn btn-danger" id="deleteAllButton">Exluir todos os Objetos</a>-->
 
             <br/><br/>
 
@@ -69,7 +69,7 @@
     <div class="modal fade" id="addModal" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true"
          data-toggle="validator">
         <form id="formAdd" th:action="@{/adicionar}" method="post">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog" style="max-width: 550px;" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addModalLabel">Adicionar Objeto</h5>
@@ -94,6 +94,10 @@
                                 <label class="form-check-label" for="spCargaAdd">SP de Carga</label>
                             </div>
                             <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipoObjeto" id="bindAdd" value="BIND">
+                                <label class="form-check-label" for="bindAdd">BIND</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="tipoObjeto" id="cobolAdd" value="COBOL">
                                 <label class="form-check-label" for="cobolAdd">COBOL</label>
                             </div>
@@ -105,22 +109,22 @@
 
                         <div class="form-group">
                             <label for="dataDes" class="col-form-label">Data Versão DES:</label>
-                            <input type="text" class="form-control" id="dataDes" name="dataDes" required>
+                            <input type="text" class="form-control" id="dataDes" name="dataDes" readonly required>
                         </div>
 
                         <div class="form-group">
                             <label for="dataTqs" class="col-form-label">Data Versão TQS:</label>
-                            <input type="text" class="form-control" id="dataTqs" name="dataTqs">
+                            <input type="text" class="form-control" id="dataTqs" name="dataTqs" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="dataHmp" class="col-form-label">Data Versão HMP:</label>
-                            <input type="text" class="form-control" id="dataHmp" name="dataHmp">
+                            <input type="text" class="form-control" id="dataHmp" name="dataHmp" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="dataPrd" class="col-form-label">Data Versão PRD:</label>
-                            <input type="text" class="form-control" id="dataPrd" name="dataPrd">
+                            <input type="text" class="form-control" id="dataPrd" name="dataPrd" readonly>
                         </div>
 
                         <div class="form-group">
@@ -141,7 +145,7 @@
     <div class="modal fade" id="editModal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"
          data-toggle="validator">
         <form th:action="@{/atualizar}" method="put">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog" style="max-width: 550px;" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editModalLabel">Atualizar Objeto</h5>
@@ -168,6 +172,10 @@
                                 <label class="form-check-label" for="SP_CARGA">SP de Carga</label>
                             </div>
                             <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipoObjeto" id="BIND" value="BIND">
+                                <label class="form-check-label" for="BIND">BIND</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="tipoObjeto" id="COBOL" value="COBOL">
                                 <label class="form-check-label" for="COBOL">COBOL</label>
                             </div>
@@ -179,22 +187,22 @@
 
                         <div class="form-group">
                             <label for="dataDesEdit" class="col-form-label">Data Versão DES:</label>
-                            <input type="text" class="form-control" id="dataDesEdit" name="dataDes" required>
+                            <input type="text" class="form-control" id="dataDesEdit" name="dataDes" readonly required>
                         </div>
 
                         <div class="form-group">
                             <label for="dataTqsEdit" class="col-form-label">Data Versão TQS:</label>
-                            <input type="text" class="form-control" id="dataTqsEdit" name="dataTqs">
+                            <input type="text" class="form-control" id="dataTqsEdit" name="dataTqs" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="dataHmpEdit" class="col-form-label">Data Versão HMP:</label>
-                            <input type="text" class="form-control" id="dataHmpEdit" name="dataHmp">
+                            <input type="text" class="form-control" id="dataHmpEdit" name="dataHmp" readonly>
                         </div>
 
                         <div class="form-group">
                             <label for="dataPrdEdit" class="col-form-label">Data Versão PRD:</label>
-                            <input type="text" class="form-control" id="dataPrdEdit" name="dataPrd">
+                            <input type="text" class="form-control" id="dataPrdEdit" name="dataPrd" readonly>
                         </div>
 
                         <div class="form-group">

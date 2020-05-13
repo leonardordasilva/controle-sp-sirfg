@@ -4,7 +4,8 @@ public enum TipoObjetoEnum {
     SP_CARGA(1L, "SP_CARGA", "SP de Carga"),
     SP(2L, "SP", "SP"),
     COBOL(3L, "COBOL", "COBOL"),
-    JCL(4L, "JCL", "JCL");
+    JCL(4L, "JCL", "JCL"),
+    BIND(5L, "BIND", "BIND");
 
     private final Long valorObjeto;
     private final String codigoObjeto;
