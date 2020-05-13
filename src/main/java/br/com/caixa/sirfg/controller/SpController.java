@@ -44,7 +44,19 @@ public class SpController {
 
     @PostMapping("/adicionar")
     public String create(Sp sp, RedirectAttributes redirectAttributes) {
+        String nomeObejto = sp.getNome();
+        List<Sp> spList = spService.findAllByNome(nomeObejto);
+
+        for (Sp sp1 : spList) {
+            if (sp1.getTipoObjeto() == sp.getTipoObjeto()) {
+                redirectAttributes.addFlashAttribute("success", false);
+                redirectAttributes.addFlashAttribute("message", "Já existe um objeto do tipo " +  sp.getTipoObjeto().getDescricaoObjeto() + " com o nome " + sp.getNome() + " cadastrado!");
+                return "redirect:/" + LISTA_SP;
+            }
+        }
+
         spService.create(sp);
+        redirectAttributes.addFlashAttribute("success", true);
         redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome() + " cadastrado com sucesso!");
         return "redirect:/" + LISTA_SP;
     }
@@ -131,7 +143,21 @@ public class SpController {
     @PutMapping
     @RequestMapping(value = "/atualizar")
     public String update(Sp sp, RedirectAttributes redirectAttributes) {
+        String nomeObejto = sp.getNome();
+        List<Sp> spList = spService.findAllByNome(nomeObejto);
+
+        for (Sp sp1 : spList) {
+            if (sp1.getId() != sp.getId()
+                    && sp1.getNome().equalsIgnoreCase(sp.getNome())
+                    && sp1.getTipoObjeto() == sp.getTipoObjeto()) {
+                redirectAttributes.addFlashAttribute("success", false);
+                redirectAttributes.addFlashAttribute("message", "Já existe um objeto do tipo " +  sp.getTipoObjeto().getDescricaoObjeto() + " com o nome " + sp.getNome() + " cadastrado!");
+                return "redirect:/" + LISTA_SP;
+            }
+        }
+
         spService.update(sp);
+        redirectAttributes.addFlashAttribute("success", true);
         redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome() + " atualizado com sucesso!");
         return "redirect:/" + LISTA_SP;
     }
@@ -141,6 +167,8 @@ public class SpController {
     public String delete(Sp sp, RedirectAttributes redirectAttributes) {
         String nomeSp = sp.getNome();
         spService.delete(sp.getId());
+
+        redirectAttributes.addFlashAttribute("success", true);
         redirectAttributes.addFlashAttribute("message", "Objeto " + nomeSp + "  excluído com sucesso!");
         return "redirect:/" + LISTA_SP;
     }

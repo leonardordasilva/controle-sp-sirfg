@@ -1,6 +1,5 @@
 $('document').ready(function () {
     $('#mainTable').DataTable({
-        "pageLength": "100",
         "pagingType": "full_numbers",
         "language": {
             "sEmptyTable": "Nenhum registro encontrado",

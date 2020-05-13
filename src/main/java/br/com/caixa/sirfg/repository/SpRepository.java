@@ -17,4 +17,6 @@ public interface SpRepository extends JpaRepository<Sp, Long> {
 
     @Query("SELECT sp FROM Sp sp WHERE sp.dataHmp <> sp.dataPrd OR (sp.dataHmp is not null and sp.dataPrd is null)")
     List<Sp> findAllHmpPrd();
+
+    List<Sp> findAllByNome(String nome);
 }

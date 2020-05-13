@@ -30,6 +30,10 @@ public class SpService {
         return spRepository.findById(Id);
     }
 
+    public List<Sp> findAllByNome(String nomeObejto) {
+        return spRepository.findAllByNome(nomeObejto);
+    }
+
     public void update(Sp sp) {
         spRepository.save(sp);
     }
@@ -54,9 +58,6 @@ public class SpService {
         return spRepository.findAllHmpPrd();
     }
 
-    public List<Sp> obterSps(List<Sp> sps, TipoObjetoEnum sp) {
-        return null;
-    }
 
     public List<Sp> montarListaSp(List<String> spList) {
         List<Sp> response = new ArrayList<>();
@@ -105,12 +106,5 @@ public class SpService {
             }
         }
         return spRetorno;
-    }
-
-    private void limparListas(List<Sp> spsNr, List<Sp> spsCargaNr, List<Sp> cobolNr, List<Sp> jclNr) {
-        spsNr.clear();
-        spsCargaNr.clear();
-        cobolNr.clear();
-        jclNr.clear();
     }
 }
