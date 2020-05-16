@@ -1,33 +1,42 @@
 $('document').ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+
     $('#mainTable').DataTable({
-        "pagingType": "full_numbers",
-        "language": {
-            "sEmptyTable": "Nenhum registro encontrado",
-            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-            "sInfoPostFix": "",
-            "sInfoThousands": ".",
-            "sLengthMenu": "_MENU_ resultados por página",
-            "sLoadingRecords": "Carregando...",
-            "sProcessing": "Processando...",
-            "sZeroRecords": "Nenhum registro encontrado",
-            "sSearch": "Pesquisar",
-            "oPaginate": {
-                "sNext": "Próximo",
-                "sPrevious": "Anterior",
-                "sFirst": "Primeiro",
-                "sLast": "Último"
+        columnDefs: [
+            {
+                targets: [0],
+                visible: false,
+                searchable: false
+            }
+        ],
+        pagingType: "full_numbers",
+        language: {
+            sEmptyTable: "Nenhum registro encontrado",
+            sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+            sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+            sInfoFiltered: "(Filtrados de _MAX_ registros)",
+            sInfoPostFix: "",
+            sInfoThousands: ".",
+            sLengthMenu: "_MENU_ resultados por página",
+            sLoadingRecords: "Carregando...",
+            sProcessing: "Processando...",
+            sZeroRecords: "Nenhum registro encontrado",
+            sSearch: "Pesquisar",
+            oPaginate: {
+                sNext: "Próximo",
+                sPrevious: "Anterior",
+                sFirst: "Primeiro",
+                sLast: "Último"
             },
-            "oAria": {
-                "sSortAscending": ": Ordenar colunas de forma ascendente",
-                "sSortDescending": ": Ordenar colunas de forma descendente"
+            oAria: {
+                sSortAscending: ": Ordenar colunas de forma ascendente",
+                sSortDescending: ": Ordenar colunas de forma descendente"
             },
-            "select": {
-                "rows": {
-                    "_": "Selecionado %d linhas",
-                    "0": "Nenhuma linha selecionada",
-                    "1": "Selecionado 1 linha"
+            select: {
+                rows: {
+                    _: "Selecionado %d linhas",
+                    0: "Nenhuma linha selecionada",
+                    1: "Selecionado 1 linha"
                 }
             }
         }
@@ -98,7 +107,7 @@ $('document').ready(function () {
 
             $('#idEdit').val(sp.id);
             $('#nomeEdit').val(sp.nome);
-            $('#' + tipoObjetoSelecionado).prop('checked',true);
+            $('#' + tipoObjetoSelecionado).prop('checked', true);
             $('#dataDesEdit').val(sp.dataDesFormatado);
             $('#dataTqsEdit').val(sp.dataTqsFormatado);
             $('#dataHmpEdit').val(sp.dataHmpFormatado);

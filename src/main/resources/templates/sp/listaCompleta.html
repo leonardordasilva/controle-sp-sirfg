@@ -7,10 +7,11 @@
     <title>Controle de Objetos - SIRFG</title>
     <meta charset="UTF-8"/>
 
-    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
-    <link th:href="@{/css/datatables.min.css}" rel="stylesheet" />
-    <link th:href="@{/css/datatables.bootstrap4.min.css}" rel="stylesheet" />
-    <link th:href="@{/css/daterangepicker.css}" rel="stylesheet" />
+    <link href="webjars/bootstrap/4.5.0/css/bootstrap.css" rel="stylesheet"/>
+    <link href="webjars/datatables/1.10.20/css/jquery.dataTables.css" rel="stylesheet"/>
+    <link href="webjars/datatables/1.10.20/css/dataTables.bootstrap4.css" rel="stylesheet"/>
+    <link href="webjars/bootstrap-daterangepicker/3.0.5/daterangepicker.css" rel="stylesheet"/>
+    <link th:href="@{/fontawesome/css/all.min.css}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -33,24 +34,26 @@
             <H2>Lista completa de Objetos</H2>
 
             <a href="#" class="btn btn-primary" id="addSpButton">Adicionar Objeto</a>
-            <!--<a th:if="${!sps.empty}" th:href="@{/deleteAll}" class="btn btn-danger" id="deleteAllButton">Exluir todos os Objetos</a>-->
+            <!--<a th:if="${!sps.empty}" th:href="@{/deleteAll}" class="btn btn-danger" id="deleteAllButton">Exluir todos os objetos selecionados</a>-->
 
             <br/><br/>
 
-            <table id="mainTable" class="table table-striped hover">
+            <table id="mainTable" class="display">
                 <thead>
-                <tr>
-                    <td>Nome</td>
-                    <td>Tipo</td>
-                    <td>Data versão DES</td>
-                    <td>Data versão TQS</td>
-                    <td>Data versão HMP</td>
-                    <td>Data versão PRD</td>
-                    <td>Ações</td>
+                <tr th:align="center">
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Data versão DES</th>
+                    <th>Data versão TQS</th>
+                    <th>Data versão HMP</th>
+                    <th>Data versão PRD</th>
+                    <th>Ações</th>
                 </tr>
                 </thead>
 
-                <tr th:each="sp:${sps}">
+                <tr th:align="center" th:each="sp:${sps}">
+                    <td th:text="${sp.id}"></td>
                     <td th:text="${sp.nome}"></td>
                     <td th:text="${sp.tipoObjeto.descricaoObjeto}"></td>
                     <td th:text="${sp.dataDesFormatado}"></td>
@@ -58,8 +61,8 @@
                     <td th:text="${sp.dataHmpFormatado}"></td>
                     <td th:text="${sp.dataPrdFormatado}"></td>
                     <td>
-                        <a th:href="@{/findById/(Id=${sp.id})}" class="btn btn-warning" id="editButton">Editar</a>
-                        <a th:href="@{/findById/(Id=${sp.id})}" class="btn btn-danger" id="deleteButton">Excluir</a>
+                        <a th:href="@{/findById/(Id=${sp.id})}" data-toggle="tooltip" class="btn btn-warning" id="editButton" title="Editar"><i class="fas fa-edit"></i></a>
+                        <a th:href="@{/findById/(Id=${sp.id})}" data-toggle="tooltip" class="btn btn-danger" id="deleteButton" title="Excluir"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
             </table>
@@ -267,12 +270,12 @@
 </section>
 </body>
 
-<script type="text/javascript" src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
-<script type="text/javascript" src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" src="webjars/jquery/3.5.1/jquery.js"></script>
+<script type="text/javascript" src="webjars/bootstrap/4.5.0/js/bootstrap.bundle.js"></script>
 <script type="text/javascript" src="../static/js/validator.js" th:src="@{/js/validator.js}"></script>
-<script type="text/javascript" src="../static/js/dataTables.min.js" th:src="@{/js/datatables.min.js}"></script>
-<script type="text/javascript" src="../static/js/dataTables.bootstrap4.min.js" th:src="@{/js/datatables.bootstrap4.min.js}"></script>
-<script type="text/javascript" src="../static/js/moment.min.js" th:src="@{/js/moment.min.js}"></script>
-<script type="text/javascript" src="../static/js/daterangepicker.min.js" th:src="@{/js/daterangepicker.min.js}"></script>
+<script type="text/javascript" src="webjars/datatables/1.10.20/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="webjars/datatables/1.10.20/js/dataTables.bootstrap4.js"></script>
+<script type="text/javascript" src="webjars/moment/2.25.3/moment.js"></script>
+<script type="text/javascript" src="webjars/bootstrap-daterangepicker/3.0.5/daterangepicker.js"></script>
 <script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 </html>

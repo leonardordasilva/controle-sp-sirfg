@@ -50,7 +50,7 @@ public class SpController {
         for (Sp sp1 : spList) {
             if (sp1.getTipoObjeto() == sp.getTipoObjeto()) {
                 redirectAttributes.addFlashAttribute("success", false);
-                redirectAttributes.addFlashAttribute("message", "Já existe um objeto do tipo " +  sp.getTipoObjeto().getDescricaoObjeto() + " com o nome " + sp.getNome() + " cadastrado!");
+                redirectAttributes.addFlashAttribute("message", "Já existe um objeto do tipo " + sp.getTipoObjeto().getDescricaoObjeto() + " com o nome " + sp.getNome() + " cadastrado!");
                 return "redirect:/" + LISTA_SP;
             }
         }
@@ -151,7 +151,7 @@ public class SpController {
                     && sp1.getNome().equalsIgnoreCase(sp.getNome())
                     && sp1.getTipoObjeto() == sp.getTipoObjeto()) {
                 redirectAttributes.addFlashAttribute("success", false);
-                redirectAttributes.addFlashAttribute("message", "Já existe um objeto do tipo " +  sp.getTipoObjeto().getDescricaoObjeto() + " com o nome " + sp.getNome() + " cadastrado!");
+                redirectAttributes.addFlashAttribute("message", "Já existe um objeto do tipo " + sp.getTipoObjeto().getDescricaoObjeto() + " com o nome " + sp.getNome() + " cadastrado!");
                 return "redirect:/" + LISTA_SP;
             }
         }

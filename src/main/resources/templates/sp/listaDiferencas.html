@@ -6,10 +6,11 @@
 <head>
     <title>Controle de Objetos - SIRFG</title>
 
-    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
-    <link th:href="@{/css/datatables.min.css}" rel="stylesheet" />
-    <link th:href="@{/css/datatables.bootstrap4.min.css}" rel="stylesheet" />
-    <link th:href="@{/css/daterangepicker.css}" rel="stylesheet" />
+    <link href="webjars/bootstrap/4.5.0/css/bootstrap.css" rel="stylesheet"/>
+    <link href="webjars/datatables/1.10.20/css/jquery.dataTables.css" rel="stylesheet"/>
+    <link href="webjars/datatables/1.10.20/css/dataTables.bootstrap4.css" rel="stylesheet"/>
+    <link href="webjars/bootstrap-daterangepicker/3.0.5/daterangepicker.css" rel="stylesheet"/>
+    <link th:href="@{/fontawesome/css/all.min.css}" rel="stylesheet"/>
 
     <meta charset="UTF-8"/>
 </head>
@@ -39,14 +40,17 @@
                 <input type="hidden" class="form-control" id="ambiente" name="ambiente" th:value="${ambiente}">
 
                 <!--<a href="#" class="btn btn-primary" id="equalizarAllButton">Equalizar todos os Objetos</a>-->
-                <button th:if="${ambiente == 'tqsHmp' or ambiente == 'hmpPrd'}" type="button" class="btn btn-warning" data-toggle="modal" data-target="#spNotaModal">Listar Objetos para Nota de Release</button>
+                <button th:if="${ambiente == 'tqsHmp' or ambiente == 'hmpPrd'}" type="button" class="btn btn-warning" data-toggle="modal" data-target="#spNotaModal">Listar Objetos para Nota de
+                    Release
+                </button>
             </div>
 
             <br/><br/>
 
             <table id="mainTable" class="table table-striped hover">
                 <thead>
-                <tr>
+                <tr th:align="center">
+                    <td>Id</td>
                     <td>Nome</td>
                     <td>Tipo</td>
                     <td th:text="${coluna1}"></td>
@@ -55,13 +59,14 @@
                 </tr>
                 </thead>
 
-                <tr th:each="sp:${sps}">
+                <tr th:align="center" th:each="sp:${sps}">
+                    <td th:text="${sp.id}"></td>
                     <td th:text="${sp.nome}"></td>
                     <td th:text="${sp.tipoObjeto.descricaoObjeto}"></td>
                     <td th:text="${sp.getValorColuna(valorColuna1)}"></td>
                     <td th:text="${sp.getValorColuna(valorColuna2)}"></td>
                     <td>
-                        <a th:href="@{/findById/(Id=${sp.id})}" class="btn btn-primary" id="equalizarButton">Equalizar</a>
+                        <a th:href="@{/findById/(Id=${sp.id})}" data-toggle="tooltip" class="btn btn-primary" id="equalizarButton" title="Equalizar"><i class="fas fa-share-square"></i></a>
                     </td>
                 </tr>
             </table>
@@ -173,14 +178,14 @@
 
     <div class="modal fade" tabindex="-1" role="dialog" id="equalizarModal">
         <form th:action="@{${actionEqualizar}}" method="post">
-            <input type="hidden" id="idEqualizar" name="id" />
-            <input type="hidden" id="nomeEqualizar" name="nome" />
-            <input type="hidden" id="tipoObjetoEqualizar" name="tipoObjeto" />
-            <input type="hidden" id="dataDesEqualizar" name="dataDes" />
-            <input type="hidden" id="dataTqsEqualizar" name="dataTqs" />
-            <input type="hidden" id="dataHmpEqualizar" name="dataHmp" />
-            <input type="hidden" id="dataPrdEqualizar" name="dataPrd" />
-            <input type="hidden" id="observacaoEqualizar" name="observacao" />
+            <input type="hidden" id="idEqualizar" name="id"/>
+            <input type="hidden" id="nomeEqualizar" name="nome"/>
+            <input type="hidden" id="tipoObjetoEqualizar" name="tipoObjeto"/>
+            <input type="hidden" id="dataDesEqualizar" name="dataDes"/>
+            <input type="hidden" id="dataTqsEqualizar" name="dataTqs"/>
+            <input type="hidden" id="dataHmpEqualizar" name="dataHmp"/>
+            <input type="hidden" id="dataPrdEqualizar" name="dataPrd"/>
+            <input type="hidden" id="observacaoEqualizar" name="observacao"/>
 
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -204,12 +209,12 @@
 </section>
 </body>
 
-<script type="text/javascript" src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
-<script type="text/javascript" src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" src="webjars/jquery/3.5.1/jquery.js"></script>
+<script type="text/javascript" src="webjars/bootstrap/4.5.0/js/bootstrap.bundle.js"></script>
 <script type="text/javascript" src="../static/js/validator.js" th:src="@{/js/validator.js}"></script>
-<script type="text/javascript" src="../static/js/dataTables.min.js" th:src="@{/js/datatables.min.js}"></script>
-<script type="text/javascript" src="../static/js/dataTables.bootstrap4.min.js" th:src="@{/js/datatables.bootstrap4.min.js}"></script>
-<script type="text/javascript" src="../static/js/moment.min.js" th:src="@{/js/moment.min.js}"></script>
-<script type="text/javascript" src="../static/js/daterangepicker.min.js" th:src="@{/js/daterangepicker.min.js}"></script>
+<script type="text/javascript" src="webjars/datatables/1.10.20/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="webjars/datatables/1.10.20/js/dataTables.bootstrap4.js"></script>
+<script type="text/javascript" src="webjars/moment/2.25.3/moment.js"></script>
+<script type="text/javascript" src="webjars/bootstrap-daterangepicker/3.0.5/daterangepicker.js"></script>
 <script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 </html>
