@@ -1,5 +1,6 @@
 package br.com.caixa.sirfg.util;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -12,7 +13,7 @@ public class DataFormatter {
         return "";
     }
 
-    public static String getDataAmbienteFormatada(LocalDateTime data) {
+    public static String getDataAmbienteFormatada(LocalDate data) {
         if (data != null) {
             return data.format(getDateFormatter());
         }

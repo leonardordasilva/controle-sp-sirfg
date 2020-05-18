@@ -22,4 +22,8 @@ public class AmbienteService {
     public Optional<Ambiente> findById(Long id) {
         return ambienteRepository.findById(id);
     }
+
+    public void update(Ambiente ambiente) {
+        ambienteRepository.save(ambiente);
+    }
 }

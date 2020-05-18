@@ -9,6 +9,7 @@ $('document').ready(function () {
                 searchable: false
             }
         ],
+        order: [1, 'asc'],
         pagingType: "full_numbers",
         language: {
             sEmptyTable: "Nenhum registro encontrado",
@@ -173,13 +174,9 @@ $('document').ready(function () {
         });
     });
 
-    $('#mainTable tbody').on('click', 'tr td a#ambienteEditButton', function (event) {
+    $('#ambienteTable tbody').on('click', 'tr td a#ambienteEditButton', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
-
-        $('#formObj').attr("action", "/atualizar");
-        $('#tituloModal').text("Atualizar Objeto");
-        $('#tituloBotaoModal').text("ATUALIZAR");
 
         $.get(href, function (ambiente, status) {
             $('#idEdit').val(ambiente.id);

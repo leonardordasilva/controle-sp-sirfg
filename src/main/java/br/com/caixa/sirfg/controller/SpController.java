@@ -1,8 +1,10 @@
 package br.com.caixa.sirfg.controller;
 
+import br.com.caixa.sirfg.model.Ambiente;
 import br.com.caixa.sirfg.model.Sp;
 import br.com.caixa.sirfg.model.enumerator.AmbienteEnum;
 import br.com.caixa.sirfg.model.enumerator.TipoObjetoEnum;
+import br.com.caixa.sirfg.service.AmbienteService;
 import br.com.caixa.sirfg.service.SpService;
 import br.com.caixa.sirfg.util.Constantes;
 import org.springframework.stereotype.Controller;
@@ -19,9 +21,11 @@ import java.util.Optional;
 @Controller
 public class SpController {
     private final SpService spService;
+    private final AmbienteService ambienteService;
 
-    public SpController(SpService spService) {
+    public SpController(SpService spService, AmbienteService ambienteService) {
         this.spService = spService;
+        this.ambienteService = ambienteService;
     }
 
     private List<Sp> sps = new ArrayList<>();
@@ -34,8 +38,18 @@ public class SpController {
 
     @RequestMapping("/listaSp")
     public String findAll(Model model) {
+        Ambiente ambiente = ambienteService.findAll().get(0);
+        String versaoDes = "Versão de DES: " + ambiente.getVersaoDes() + " - " + ambiente.getDataFormatada(AmbienteEnum.DES);
+        String versaoTqs = "Versão de TQS: " + ambiente.getVersaoTqs() + " - " + ambiente.getDataFormatada(AmbienteEnum.TQS);
+        String versaoHmp = "Versão de HMP: " + ambiente.getVersaoHmp() + " - " + ambiente.getDataFormatada(AmbienteEnum.HMP);
+        String versaoPrd = "Versão de PRD: " + ambiente.getVersaoPrd() + " - " + ambiente.getDataFormatada(AmbienteEnum.PRD);
+
         sps = spService.findAll();
 
+        model.addAttribute("versaoDes", versaoDes);
+        model.addAttribute("versaoTqs", versaoTqs);
+        model.addAttribute("versaoHmp", versaoHmp);
+        model.addAttribute("versaoPrd", versaoPrd);
         model.addAttribute("ambiente", "home");
         model.addAttribute("sps", sps);
         model.addAttribute("acaoForm", "/adicionar");

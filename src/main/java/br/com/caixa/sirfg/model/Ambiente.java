@@ -13,7 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,25 +29,25 @@ public class Ambiente {
     private String versaoDes;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDateTime dataDes;
+    private LocalDate dataDes;
 
     @NotNull
     private String versaoTqs;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime dataTqs;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataTqs;
 
     @NotNull
     private String versaoHmp;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime dataHmp;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataHmp;
 
     @NotNull
     private String versaoPrd;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-    private LocalDateTime dataPrd;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataPrd;
 
     public String getDataFormatada(AmbienteEnum ambienteEnum) {
         switch (ambienteEnum) {
@@ -80,7 +80,7 @@ public class Ambiente {
         return getDataFormatada(AmbienteEnum.PRD);
     }
 
-    public String getDataFormatada(LocalDateTime data) {
+    public String getDataFormatada(LocalDate data) {
         return DataFormatter.getDataAmbienteFormatada(data);
     }
 }

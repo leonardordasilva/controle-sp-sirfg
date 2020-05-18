@@ -3,22 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{index}">
 
-<head>
-    <title>Controle de Ambientes - SIRFG</title>
-    <meta charset="UTF-8"/>
-
-    <link href="webjars/bootstrap/4.5.0/css/bootstrap.css" rel="stylesheet"/>
-    <link href="webjars/datatables/1.10.20/css/jquery.dataTables.css" rel="stylesheet"/>
-    <link href="webjars/datatables/1.10.20/css/dataTables.bootstrap4.css" rel="stylesheet"/>
-    <link href="webjars/bootstrap-daterangepicker/3.0.5/daterangepicker.css" rel="stylesheet"/>
-    <link th:href="@{/fontawesome/css/all.min.css}" rel="stylesheet"/>
-</head>
-
 <body>
-<header th:replace="cabecalho/cabecalhoAmbiente :: cabecalhoAmbiente">
-    <div>header</div>
-</header>
-
 <section class="layout-content" layout:fragment="corpo">
     <div role="main" class="container-fluid">
         <div class="starter-template">
@@ -60,16 +45,15 @@
                     <td th:text="${ambiente.versaoPrd}"></td>
                     <td th:text="${ambiente.getDataFormatada(ambiente.dataDes)}"></td>
                     <td>
-                        <a th:href="@{/ambiente/findById/(Id=${ambiente.id})}" data-toggle="tooltip" class="btn btn-warning" id="ambienteEditButton" title="Editar"><i class="fas fa-edit"></i></a>
+                        <a th:href="@{/ambiente/findById/(id=${ambiente.id})}" data-toggle="tooltip" class="btn btn-warning" id="ambienteEditButton" title="Editar"><i class="fas fa-edit"></i></a>
                     </td>
                 </tr>
             </table>
         </div>
     </div>
 
-    <div class="modal fade" id="ambienteEditModal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"
-         data-toggle="validator">
-        <form th:action="@{/atualizar}" method="put">
+    <div class="modal fade" id="ambienteEditModal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <form th:action="@{/ambiente/atualizar}" method="post">
             <div class="modal-dialog" style="max-width: 550px;" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -132,13 +116,4 @@
     </div>
 </section>
 </body>
-
-<script type="text/javascript" src="webjars/jquery/3.5.1/jquery.js"></script>
-<script type="text/javascript" src="webjars/bootstrap/4.5.0/js/bootstrap.bundle.js"></script>
-<script type="text/javascript" src="../static/js/validator.js" th:src="@{/js/validator.js}"></script>
-<script type="text/javascript" src="webjars/datatables/1.10.20/js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="webjars/datatables/1.10.20/js/dataTables.bootstrap4.js"></script>
-<script type="text/javascript" src="webjars/moment/2.25.3/moment.js"></script>
-<script type="text/javascript" src="webjars/bootstrap-daterangepicker/3.0.5/daterangepicker.js"></script>
-<script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 </html>
