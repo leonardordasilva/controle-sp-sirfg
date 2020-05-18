@@ -92,8 +92,13 @@ $('document').ready(function () {
 
     $('#addSpButton').on('click', function (event) {
         event.preventDefault();
-        $('#formAdd').trigger("reset");
-        $('#addModal').modal({
+        $('#formObj').trigger("reset");
+
+        $('#formObj').attr("action", "/adicionar");
+        $('#tituloModal').text("Adicionar Objeto");
+        $('#tituloBotaoModal').text("ADICIONAR");
+
+        $('#modalObj').modal({
             keyboard: true
         });
     });
@@ -102,20 +107,24 @@ $('document').ready(function () {
         event.preventDefault();
         var href = $(this).attr('href');
 
+        $('#formObj').attr("action", "/atualizar");
+        $('#tituloModal').text("Atualizar Objeto");
+        $('#tituloBotaoModal').text("ATUALIZAR");
+
         $.get(href, function (sp, status) {
             var tipoObjetoSelecionado = sp.tipoObjeto;
 
-            $('#idEdit').val(sp.id);
-            $('#nomeEdit').val(sp.nome);
+            $('#id').val(sp.id);
+            $('#nome').val(sp.nome);
             $('#' + tipoObjetoSelecionado).prop('checked', true);
-            $('#dataDesEdit').val(sp.dataDesFormatado);
-            $('#dataTqsEdit').val(sp.dataTqsFormatado);
-            $('#dataHmpEdit').val(sp.dataHmpFormatado);
-            $('#dataPrdEdit').val(sp.dataPrdFormatado);
-            $('#observacaoEdit').val(sp.observacao);
+            $('#dataDes').val(sp.dataDesFormatada);
+            $('#dataTqs').val(sp.dataTqsFormatada);
+            $('#dataHmp').val(sp.dataHmpFormatada);
+            $('#dataPrd').val(sp.dataPrdFormatada);
+            $('#observacao').val(sp.observacao);
         });
 
-        $('#editModal').modal({
+        $('#modalObj').modal({
             keyboard: true
         });
     });
@@ -143,10 +152,10 @@ $('document').ready(function () {
             $('#idEqualizar').val(sp.id);
             $('#nomeEqualizar').val(sp.nome);
             $('#tipoObjetoEqualizar').val(sp.tipoObjeto);
-            $('#dataDesEqualizar').val(sp.dataDesFormatado);
-            $('#dataTqsEqualizar').val(sp.dataTqsFormatado);
-            $('#dataHmpEqualizar').val(sp.dataHmpFormatado);
-            $('#dataPrdEqualizar').val(sp.dataPrdFormatado);
+            $('#dataDesEqualizar').val(sp.dataDesFormatada);
+            $('#dataTqsEqualizar').val(sp.dataTqsFormatada);
+            $('#dataHmpEqualizar').val(sp.dataHmpFormatada);
+            $('#dataPrdEqualizar').val(sp.dataPrdFormatada);
             $('#observacaoEqualizar').val(sp.observacao);
 
             $('#nomeSpEqualizar').text(sp.nome);
@@ -157,19 +166,34 @@ $('document').ready(function () {
         });
     });
 
-    $('#deleteAllButton').on('click', function (event) {
+    $('#equalizarAllButton').on('click', function (event) {
         event.preventDefault();
-        var href = $(this).attr('href');
-
-        $('#deleteAllModal #delAllRef').attr('href', href);
-        $('#deleteAllModal').modal({
+        $('#equalizarAllModal').modal({
             keyboard: true
         });
     });
 
-    $('#equalizarAllButton').on('click', function (event) {
+    $('#mainTable tbody').on('click', 'tr td a#ambienteEditButton', function (event) {
         event.preventDefault();
-        $('#equalizarAllModal').modal({
+        var href = $(this).attr('href');
+
+        $('#formObj').attr("action", "/atualizar");
+        $('#tituloModal').text("Atualizar Objeto");
+        $('#tituloBotaoModal').text("ATUALIZAR");
+
+        $.get(href, function (ambiente, status) {
+            $('#idEdit').val(ambiente.id);
+            $('#versaoDesEdit').val(ambiente.versaoDes);
+            $('#dataDesEdit').val(ambiente.dataDesFormatada);
+            $('#versaoTqsEdit').val(ambiente.versaoTqs);
+            $('#dataTqsEdit').val(ambiente.dataTqsFormatada);
+            $('#versaoHmpEdit').val(ambiente.versaoHmp);
+            $('#dataHmpEdit').val(ambiente.dataHmpFormatada);
+            $('#versaoPrdEdit').val(ambiente.versaoPrd);
+            $('#dataPrdEdit').val(ambiente.dataPrdFormatada);
+        });
+
+        $('#ambienteEditModal').modal({
             keyboard: true
         });
     });

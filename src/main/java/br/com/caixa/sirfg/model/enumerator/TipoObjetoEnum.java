@@ -1,4 +1,4 @@
-package br.com.caixa.sirfg.model;
+package br.com.caixa.sirfg.model.enumerator;
 
 public enum TipoObjetoEnum {
     SP_CARGA(1L, "SP_CARGA", "SP de Carga"),

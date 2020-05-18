@@ -1,7 +1,7 @@
 package br.com.caixa.sirfg.service;
 
 import br.com.caixa.sirfg.model.Sp;
-import br.com.caixa.sirfg.model.TipoObjetoEnum;
+import br.com.caixa.sirfg.model.enumerator.TipoObjetoEnum;
 import br.com.caixa.sirfg.repository.SpRepository;
 import org.springframework.stereotype.Service;
 

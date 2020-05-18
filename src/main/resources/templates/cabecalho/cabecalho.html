@@ -1,34 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">>
-<head>
-    <meta charset="UTF-8">
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <body>
-<header th:fragment="cabecalho">
-    <nav class="navbar navbar-dark bg-primary navbar-expand-md fixed-top">
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="nav navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/listaSp">Lista completa de Objetos |</a>
-                </li>
+<nav class="navbar navbar-dark bg-primary navbar-expand-md fixed-top">
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${ambiente == 'home' ? 'active' : ''}" href="/listaSp">Lista completa de Objetos |</a>
+            </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/listaDesTqs">Lista de Objetos para ir a TQS |</a>
-                </li>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${ambiente == 'desTqs' ? 'active' : ''}" href="/listaDesTqs">Lista de Objetos para ir a TQS |</a>
+            </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/listaTqsHmp">Lista de Objetos para ir a HMP |</a>
-                </li>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${ambiente == 'tqsHmp' ? 'active' : ''}" href="/listaTqsHmp">Lista de Objetos para ir a HMP |</a>
+            </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/listaHmpPrd">Lista de Objetos para ir a PRD</a>
-                </li>
-            </ul>
-            <div style="color:#FFFFFF" class="nav-item active">
-                <h5>Controle de Objetos - SIRFG</span></h5>
-            </div>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${ambiente == 'hmpPrd' ? 'active' : ''}" href="/listaHmpPrd">Lista de Objetos para ir a PRD</a>
+            </li>
+        </ul>
+        <div style="color:#FFFFFF" class="nav-item active">
+            <h5 th:text="${ambiente} ? 'Controle de Objetos - SIRFG' : 'Controle de Ambientes - SIRFG'"></h5>
         </div>
-    </nav>
-</header>
+    </div>
+</nav>
 </body>
 </html>

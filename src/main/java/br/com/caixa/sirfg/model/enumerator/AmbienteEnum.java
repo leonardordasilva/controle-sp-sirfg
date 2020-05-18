@@ -1,4 +1,4 @@
-package br.com.caixa.sirfg.model;
+package br.com.caixa.sirfg.model.enumerator;
 
 public enum AmbienteEnum {
     DES(1L, "DES"),
