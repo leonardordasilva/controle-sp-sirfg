@@ -29,7 +29,7 @@
 
 <br/><br/><br/>
 
-<table class="table table-borderless">
+<table th:if="${ambiente}" class="table table-borderless">
     <tr class="table-info" th:align="center">
         <td><h5 th:text="${versaoDes}"></h5></td>
         <td><h5 th:text="${versaoTqs}"></h5></td>
@@ -37,6 +37,6 @@
         <td><h5 th:text="${versaoPrd}"></h5></td>
     </tr>
 </table>
-<hr/>
+<hr th:if="${ambiente}"/>
 </body>
 </html>
