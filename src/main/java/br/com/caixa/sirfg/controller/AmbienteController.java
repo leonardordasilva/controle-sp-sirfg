@@ -32,6 +32,17 @@ public class AmbienteController {
         return ambienteService.findById(id);
     }
 
+    @PostMapping("/ambiente/adicionar")
+    public String create(Ambiente ambiente, RedirectAttributes redirectAttributes) {
+
+        ambienteService.create(ambiente);
+
+        redirectAttributes.addFlashAttribute("success", true);
+        redirectAttributes.addFlashAttribute("message", "Informações dos ambientes cadastrado com sucesso!");
+
+        return "redirect:/listaAmbiente";
+    }
+
     @PostMapping(value = "/ambiente/atualizar")
     public String update(Ambiente ambiente, RedirectAttributes redirectAttributes) {
         ambienteService.update(ambiente);

@@ -174,6 +174,19 @@ $('document').ready(function () {
         });
     });
 
+    $('#addAmbienteButton').on('click', function (event) {
+        event.preventDefault();
+        $('#formAmbiente').trigger("reset");
+
+        $('#formAmbiente').attr("action", "/ambiente/adicionar");
+        $('#tituloModal').text("Adicionar Ambiente");
+        $('#tituloBotaoModal').text("ADICIONAR");
+
+        $('#ambienteModal').modal({
+            keyboard: true
+        });
+    });
+
     $('#ambienteTable tbody').on('click', 'tr td a#ambienteEditButton', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
@@ -190,7 +203,11 @@ $('document').ready(function () {
             $('#dataPrdEdit').val(ambiente.dataPrdFormatada);
         });
 
-        $('#ambienteEditModal').modal({
+        $('#formAmbiente').attr("action", "/ambiente/atualizar");
+        $('#tituloModal').text("Alterar Ambiente");
+        $('#tituloBotaoModal').text("ALTERAR");
+
+        $('#ambienteModal').modal({
             keyboard: true
         });
     });

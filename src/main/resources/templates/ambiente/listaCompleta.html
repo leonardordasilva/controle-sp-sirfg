@@ -16,6 +16,10 @@
                 </button>
             </div>
 
+            <a th:if="${ambienteList.isEmpty()}" href="#" class="btn btn-primary" id="addAmbienteButton">Adicionar Objeto</a>
+
+            <br/><br/>
+
             <H2>Lista completa de Ambientes</H2>
 
             <br/><br/>
@@ -37,13 +41,13 @@
 
                 <tr th:align="center" th:each="ambiente:${ambienteList}">
                     <td th:text="${ambiente.versaoDes}"></td>
-                    <td th:text="${ambiente.getDataFormatada(ambiente.dataDes)}"></td>
+                    <td th:text="${ambiente.getDataDesFormatada()}"></td>
                     <td th:text="${ambiente.versaoTqs}"></td>
-                    <td th:text="${ambiente.getDataFormatada(ambiente.dataDes)}"></td>
+                    <td th:text="${ambiente.getDataTqsFormatada()}"></td>
                     <td th:text="${ambiente.versaoHmp}"></td>
-                    <td th:text="${ambiente.getDataFormatada(ambiente.dataDes)}"></td>
+                    <td th:text="${ambiente.getDataHmpFormatada()}"></td>
                     <td th:text="${ambiente.versaoPrd}"></td>
-                    <td th:text="${ambiente.getDataFormatada(ambiente.dataDes)}"></td>
+                    <td th:text="${ambiente.getDataPrdFormatada()}"></td>
                     <td>
                         <a th:href="@{/ambiente/findById/(id=${ambiente.id})}" data-toggle="tooltip" class="btn btn-warning" id="ambienteEditButton" title="Editar"><i class="fas fa-edit"></i></a>
                     </td>
@@ -52,12 +56,12 @@
         </div>
     </div>
 
-    <div class="modal fade" id="ambienteEditModal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-        <form th:action="@{/ambiente/atualizar}" method="post">
+    <div class="modal fade" id="ambienteModal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <form th:id="formAmbiente" method="post">
             <div class="modal-dialog" style="max-width: 550px;" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Atualizar Objeto</h5>
+                        <h5 th:id="tituloModal" class="modal-title" id="modalLabel"/>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -108,7 +112,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">SAIR</button>
-                        <button type="submit" class="btn btn-primary">ATUALIZAR</button>
+                        <button th:id="tituloBotaoModal" type="submit" class="btn btn-primary"/>
                     </div>
                 </div>
             </div>

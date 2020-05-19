@@ -23,6 +23,10 @@ public class AmbienteService {
         return ambienteRepository.findById(id);
     }
 
+    public void create(Ambiente ambiente) {
+        ambienteRepository.save(ambiente);
+    }
+
     public void update(Ambiente ambiente) {
         ambienteRepository.save(ambiente);
     }

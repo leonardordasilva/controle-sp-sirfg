@@ -38,18 +38,24 @@ public class SpController {
 
     @RequestMapping("/listaSp")
     public String findAll(Model model) {
-        Ambiente ambiente = ambienteService.findAll().get(0);
-        String versaoDes = "Versão de DES: " + ambiente.getVersaoDes() + " - " + ambiente.getDataFormatada(AmbienteEnum.DES);
-        String versaoTqs = "Versão de TQS: " + ambiente.getVersaoTqs() + " - " + ambiente.getDataFormatada(AmbienteEnum.TQS);
-        String versaoHmp = "Versão de HMP: " + ambiente.getVersaoHmp() + " - " + ambiente.getDataFormatada(AmbienteEnum.HMP);
-        String versaoPrd = "Versão de PRD: " + ambiente.getVersaoPrd() + " - " + ambiente.getDataFormatada(AmbienteEnum.PRD);
+        List<Ambiente> ambienteList = ambienteService.findAll();
+
+        if (!ambienteList.isEmpty()) {
+            Ambiente ambiente = ambienteList.get(0);
+
+            String versaoDes = "Versão de DES: " + ambiente.getVersaoDes() + " - " + ambiente.getDataFormatada(AmbienteEnum.DES);
+            String versaoTqs = "Versão de TQS: " + ambiente.getVersaoTqs() + " - " + ambiente.getDataFormatada(AmbienteEnum.TQS);
+            String versaoHmp = "Versão de HMP: " + ambiente.getVersaoHmp() + " - " + ambiente.getDataFormatada(AmbienteEnum.HMP);
+            String versaoPrd = "Versão de PRD: " + ambiente.getVersaoPrd() + " - " + ambiente.getDataFormatada(AmbienteEnum.PRD);
+
+            model.addAttribute("versaoCadastrada", true);
+            model.addAttribute("versaoDes", versaoDes);
+            model.addAttribute("versaoTqs", versaoTqs);
+            model.addAttribute("versaoHmp", versaoHmp);
+            model.addAttribute("versaoPrd", versaoPrd);
+        }
 
         sps = spService.findAll();
-
-        model.addAttribute("versaoDes", versaoDes);
-        model.addAttribute("versaoTqs", versaoTqs);
-        model.addAttribute("versaoHmp", versaoHmp);
-        model.addAttribute("versaoPrd", versaoPrd);
         model.addAttribute("ambiente", "home");
         model.addAttribute("sps", sps);
         model.addAttribute("acaoForm", "/adicionar");

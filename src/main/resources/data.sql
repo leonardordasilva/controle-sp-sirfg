@@ -1,1 +1,0 @@
-insert into AMBIENTE(DATA_DES, DATA_HMP, DATA_PRD, DATA_TQS, VERSAO_DES, VERSAO_HMP, VERSAO_PRD, VERSAO_TQS) VALUES (now(), now(), now(), now(), 1, 1, 1, 1)
