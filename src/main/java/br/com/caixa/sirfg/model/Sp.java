@@ -86,6 +86,6 @@ public class Sp {
     }
 
     public String getDataFormatada(LocalDateTime data) {
-        return DataFormatter.getDataObjetoFormatada(data);
+        return DataFormatter.getDataFormatada(data);
     }
 }
