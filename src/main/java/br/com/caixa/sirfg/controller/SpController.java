@@ -38,6 +38,7 @@ public class SpController {
 
     @RequestMapping("/listaSp")
     public String findAll(Model model) {
+        model.addAttribute("versaoCadastrada", false);
         List<Ambiente> ambienteList = ambienteService.findAll();
 
         if (!ambienteList.isEmpty()) {

@@ -18,11 +18,9 @@
 
             <a th:if="${ambienteList.isEmpty()}" href="#" class="btn btn-primary" id="addAmbienteButton">Adicionar Objeto</a>
 
-            <br/><br/>
+            <div th:if="${ambienteList.isEmpty()}"><br/><br/></div>
 
             <H2>Lista completa de Ambientes</H2>
-
-            <br/><br/>
 
             <table id="ambienteTable" class="table">
                 <thead>

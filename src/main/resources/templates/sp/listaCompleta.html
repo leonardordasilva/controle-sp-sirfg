@@ -7,6 +7,8 @@
 <section class="layout-content" layout:fragment="corpo">
     <div role="main" class="container-fluid">
         <div class="starter-template">
+            <div th:if="${!versaoCadastrada}"><br/><br/><br/></div>
+
             <div th:if="${message}" class="alert alert-dismissible fade show" th:classappend="${success} ? alert-success : alert-warning" role="alert">
                 <div th:text="${message}"></div>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -14,11 +16,9 @@
                 </button>
             </div>
 
-            <H2>Lista completa de Objetos</H2>
-
             <a href="#" class="btn btn-primary" id="addSpButton">Adicionar Objeto</a>
 
-            <br/><br/>
+            <br/><br/><H2>Lista completa de Objetos</H2>
 
             <table id="mainTable" class="display">
                 <thead>
