@@ -12,7 +12,19 @@ public class DataFormatter {
         return "";
     }
 
+    public static String getDataAmbienteFormatada(LocalDateTime data) {
+        if (data != null) {
+            return data.format(getDateFormatter());
+        }
+
+        return "";
+    }
+
     private static DateTimeFormatter getDateTimeFormatter() {
         return DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    }
+
+    private static DateTimeFormatter getDateFormatter() {
+        return DateTimeFormatter.ofPattern("dd/MM/yyyy");
     }
 }

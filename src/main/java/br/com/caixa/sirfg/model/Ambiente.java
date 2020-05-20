@@ -52,35 +52,31 @@ public class Ambiente {
     public String getDataFormatada(AmbienteEnum ambienteEnum) {
         switch (ambienteEnum) {
             case DES:
-                return getDataFormatada(dataDes);
+                return DataFormatter.getDataAmbienteFormatada(dataDes);
             case TQS:
-                return getDataFormatada(dataTqs);
+                return DataFormatter.getDataAmbienteFormatada(dataTqs);
             case HMP:
-                return getDataFormatada(dataHmp);
+                return DataFormatter.getDataAmbienteFormatada(dataHmp);
             case PRD:
-                return getDataFormatada(dataPrd);
+                return DataFormatter.getDataAmbienteFormatada(dataPrd);
             default:
                 return null;
         }
     }
 
     public String getDataDesFormatada() {
-        return getDataFormatada(AmbienteEnum.DES);
+        return DataFormatter.getDataFormatada(dataDes);
     }
 
     public String getDataTqsFormatada() {
-        return getDataFormatada(AmbienteEnum.TQS);
+        return DataFormatter.getDataFormatada(dataTqs);
     }
 
     public String getDataHmpFormatada() {
-        return getDataFormatada(AmbienteEnum.HMP);
+        return DataFormatter.getDataFormatada(dataHmp);
     }
 
     public String getDataPrdFormatada() {
-        return getDataFormatada(AmbienteEnum.PRD);
-    }
-
-    public String getDataFormatada(LocalDateTime data) {
-        return DataFormatter.getDataFormatada(data);
+        return DataFormatter.getDataFormatada(dataPrd);
     }
 }
