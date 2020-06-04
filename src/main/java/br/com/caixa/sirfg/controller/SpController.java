@@ -177,7 +177,7 @@ public class SpController {
         List<Sp> spList = spService.findAllByNome(nomeObejto);
 
         for (Sp sp1 : spList) {
-            if (sp1.getId() != sp.getId()
+            if (!sp1.getId().equals(sp.getId())
                     && sp1.getNome().equalsIgnoreCase(sp.getNome())
                     && sp1.getTipoObjeto() == sp.getTipoObjeto()) {
                 redirectAttributes.addFlashAttribute("success", false);
