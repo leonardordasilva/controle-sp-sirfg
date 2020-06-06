@@ -54,48 +54,6 @@ public class SpService {
         spRepository.deleteById(Id);
     }
 
-    public void deleteAll() {
-        spRepository.deleteAll();
-    }
-
-    public List<Sp> montarListaSp(List<String> spList) {
-        List<Sp> response = new ArrayList<>();
-
-        Sp sp = new Sp();
-
-        sp.setId(Long.valueOf(spList.get(0).substring(6)));
-
-        sp.setNome(spList.get(1).trim().substring(5));
-
-        sp.setTipoObjeto(TipoObjetoEnum.getTipoObjetoEnumByDescricao(spList.get(2).trim().substring(11)));
-
-        String data = spList.get(3).trim().substring(8);
-        if (!data.equalsIgnoreCase("null")) {
-            sp.setDataDes(LocalDateTime.parse(data));
-        }
-
-        data = spList.get(4).trim().substring(8);
-        if (!data.equalsIgnoreCase("null")) {
-            sp.setDataTqs(LocalDateTime.parse(data));
-        }
-
-        data = spList.get(5).trim().substring(8);
-        if (!data.equalsIgnoreCase("null")) {
-            sp.setDataHmp(LocalDateTime.parse(data));
-        }
-
-        data = spList.get(6).trim().substring(8);
-        if (!data.equalsIgnoreCase("null")) {
-            sp.setDataPrd(LocalDateTime.parse(data));
-        }
-
-        sp.setObservacao(spList.get(7).trim().substring(11));
-
-        response.add(sp);
-
-        return response;
-    }
-
     public List<Sp> agruparSps(List<Sp> spRetorno, List<Sp> sps, TipoObjetoEnum tipoObjeto) {
         spRetorno.clear();
 

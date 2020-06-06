@@ -34,7 +34,6 @@ public class SpController {
     private List<Sp> bindNr = new ArrayList<>();
     private List<Sp> cobolNr = new ArrayList<>();
     private List<Sp> jclNr = new ArrayList<>();
-    private List<Sp> spConverterList = new ArrayList<>();
 
     @RequestMapping("/listaSp")
     public String findAll(Model model) {
@@ -57,6 +56,7 @@ public class SpController {
         }
 
         sps = spService.findAll();
+
         model.addAttribute("ambiente", "home");
         model.addAttribute("sps", sps);
         model.addAttribute("acaoForm", "/adicionar");
@@ -229,48 +229,6 @@ public class SpController {
         sp.setDataPrd(sp.getDataHmp());
 
         equalizar(sp, redirectAttributes);
-
-        return Constantes.REDIRECT_LISTA_HMP_PRD;
-    }
-
-    @PostMapping(value = "/equalizarAll/desTqs")
-    public String equalizarAllDesTqs(Sp wrapper, RedirectAttributes redirectAttributes) {
-        spConverterList = spService.montarListaSp(wrapper.getSpList());
-
-        for (Sp sp : spConverterList) {
-            sp.setDataTqs(sp.getDataDes());
-            spService.update(sp);
-        }
-
-        redirectAttributes.addFlashAttribute("message", "Objetos equalizados com sucesso!");
-
-        return Constantes.REDIRECT_LISTA_DES_TQS;
-    }
-
-    @PostMapping(value = "/equalizarAll/tqsHmp")
-    public String equalizarAllTqsHmp(Sp wrapper, RedirectAttributes redirectAttributes) {
-        spConverterList = spService.montarListaSp(wrapper.getSpList());
-
-        for (Sp sp : spConverterList) {
-            sp.setDataHmp(sp.getDataTqs());
-            spService.update(sp);
-        }
-
-        redirectAttributes.addFlashAttribute("message", "Objetos equalizados com sucesso!");
-
-        return Constantes.REDIRECT_LISTA_TQS_HMP;
-    }
-
-    @PostMapping(value = "/equalizarAll/hmpPrd")
-    public String equalizarAllHmpPrd(Sp wrapper, RedirectAttributes redirectAttributes) {
-        spConverterList = spService.montarListaSp(wrapper.getSpList());
-
-        for (Sp sp : spConverterList) {
-            sp.setDataPrd(sp.getDataHmp());
-            spService.update(sp);
-        }
-
-        redirectAttributes.addFlashAttribute("message", "Objetos equalizados com sucesso!");
 
         return Constantes.REDIRECT_LISTA_HMP_PRD;
     }

@@ -167,13 +167,6 @@ $('document').ready(function () {
         });
     });
 
-    $('#equalizarAllButton').on('click', function (event) {
-        event.preventDefault();
-        $('#equalizarAllModal').modal({
-            keyboard: true
-        });
-    });
-
     $('#addAmbienteButton').on('click', function (event) {
         event.preventDefault();
         $('#formAmbiente').trigger("reset");
