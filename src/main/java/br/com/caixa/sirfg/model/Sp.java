@@ -3,10 +3,8 @@ package br.com.caixa.sirfg.model;
 import br.com.caixa.sirfg.model.enumerator.AmbienteEnum;
 import br.com.caixa.sirfg.model.enumerator.TipoObjetoEnum;
 import br.com.caixa.sirfg.util.DataFormatter;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
@@ -20,14 +18,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Data
 @Entity
 public class Sp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id;
 
     @NotNull

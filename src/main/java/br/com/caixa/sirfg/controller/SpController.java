@@ -23,17 +23,17 @@ public class SpController {
     private final SpService spService;
     private final AmbienteService ambienteService;
 
-    public SpController(SpService spService, AmbienteService ambienteService) {
-        this.spService = spService;
-        this.ambienteService = ambienteService;
-    }
-
     private List<Sp> sps = new ArrayList<>();
     private List<Sp> spsNr = new ArrayList<>();
     private List<Sp> spsCargaNr = new ArrayList<>();
     private List<Sp> bindNr = new ArrayList<>();
     private List<Sp> cobolNr = new ArrayList<>();
     private List<Sp> jclNr = new ArrayList<>();
+
+    public SpController(SpService spService, AmbienteService ambienteService) {
+        this.spService = spService;
+        this.ambienteService = ambienteService;
+    }
 
     @RequestMapping("/listaSp")
     public String findAll(Model model) {
