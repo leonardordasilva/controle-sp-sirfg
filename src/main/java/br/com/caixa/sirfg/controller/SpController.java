@@ -1,6 +1,7 @@
 package br.com.caixa.sirfg.controller;
 
 import br.com.caixa.sirfg.model.Ambiente;
+import br.com.caixa.sirfg.model.InformacaoSp;
 import br.com.caixa.sirfg.model.Sp;
 import br.com.caixa.sirfg.model.enumerator.AmbienteEnum;
 import br.com.caixa.sirfg.model.enumerator.TipoObjetoEnum;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +61,6 @@ public class SpController {
 
         model.addAttribute("ambiente", "home");
         model.addAttribute("sps", sps);
-        model.addAttribute("acaoForm", "/adicionar");
 
         return "sp/listaCompleta";
     }
@@ -69,17 +70,11 @@ public class SpController {
         sps = spService.findAllDesTqs();
 
         model.addAttribute("titulo", Constantes.TITULO_DES_TQS);
-
         model.addAttribute("ambiente", "desTqs");
-
         model.addAttribute("actionEqualizar", "/equalizar/desTqs");
-        model.addAttribute("actionEqualizarAll", "/equalizarAll/desTqs");
-
         model.addAttribute("sps", sps);
-
         model.addAttribute("coluna1", Constantes.DATA_VERSAO_DES);
         model.addAttribute("coluna2", Constantes.DATA_VERSAO_TQS);
-
         model.addAttribute("valorColuna1", AmbienteEnum.DES);
         model.addAttribute("valorColuna2", AmbienteEnum.TQS);
 
@@ -93,22 +88,16 @@ public class SpController {
         agruparSps();
 
         model.addAttribute("titulo", Constantes.TITULO_TQS_HMP);
-
         model.addAttribute("ambiente", "tqsHmp");
-
         model.addAttribute("actionEqualizar", "/equalizar/tqsHmp");
-        model.addAttribute("actionEqualizarAll", "/equalizarAll/tqsHmp");
-
         model.addAttribute("sps", sps);
         model.addAttribute("spsNr", spsNr);
         model.addAttribute("spsCargaNr", spsCargaNr);
         model.addAttribute("bindNr", bindNr);
         model.addAttribute("cobolNr", cobolNr);
         model.addAttribute("jclNr", jclNr);
-
         model.addAttribute("coluna1", Constantes.DATA_VERSAO_TQS);
         model.addAttribute("coluna2", Constantes.DATA_VERSAO_HMP);
-
         model.addAttribute("valorColuna1", AmbienteEnum.TQS);
         model.addAttribute("valorColuna2", AmbienteEnum.HMP);
 
@@ -122,22 +111,16 @@ public class SpController {
         agruparSps();
 
         model.addAttribute("titulo", Constantes.TITULO_HMP_PRD);
-
         model.addAttribute("ambiente", "hmpPrd");
-
         model.addAttribute("actionEqualizar", "/equalizar/hmpPrd");
-        model.addAttribute("actionEqualizarAll", "/equalizarAll/hmpPrd");
-
         model.addAttribute("sps", sps);
         model.addAttribute("spsNr", spsNr);
         model.addAttribute("spsCargaNr", spsCargaNr);
         model.addAttribute("bindNr", bindNr);
         model.addAttribute("cobolNr", cobolNr);
         model.addAttribute("jclNr", jclNr);
-
         model.addAttribute("coluna1", Constantes.DATA_VERSAO_HMP);
         model.addAttribute("coluna2", Constantes.DATA_VERSAO_PRD);
-
         model.addAttribute("valorColuna1", AmbienteEnum.HMP);
         model.addAttribute("valorColuna2", AmbienteEnum.PRD);
 
@@ -145,22 +128,25 @@ public class SpController {
     }
 
     @PostMapping("/adicionar")
-    public String create(Sp sp, RedirectAttributes redirectAttributes) {
-        String nomeObejto = sp.getNome();
+    public String create(Sp sp, InformacaoSp informacaoSp, RedirectAttributes redirectAttributes) {
+        String nomeObejto = sp.getNome().toUpperCase();
         List<Sp> spList = spService.findAllByNome(nomeObejto);
 
         for (Sp sp1 : spList) {
             if (sp1.getTipoObjeto() == sp.getTipoObjeto()) {
                 redirectAttributes.addFlashAttribute("success", false);
-                redirectAttributes.addFlashAttribute("message", "Já existe um objeto do tipo " + sp.getTipoObjeto().getDescricaoObjeto() + " com o nome " + sp.getNome() + " cadastrado!");
+                redirectAttributes.addFlashAttribute("message", "Já existe um objeto do tipo " + sp.getTipoObjeto().getDescricaoObjeto() + " com o nome " + nomeObejto + " cadastrado!");
                 return Constantes.REDIRECT_LISTA_SP;
             }
         }
 
-        spService.create(sp);
+        informacaoSp.setDataManipulacao(LocalDateTime.now());
+        sp.getInformacoes().add(informacaoSp);
+
+        spService.createOrUpdate(sp);
 
         redirectAttributes.addFlashAttribute("success", true);
-        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome() + " cadastrado com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objeto " + nomeObejto + " cadastrado com sucesso!");
 
         return Constantes.REDIRECT_LISTA_SP;
     }
@@ -172,24 +158,29 @@ public class SpController {
     }
 
     @PostMapping(value = "/atualizar")
-    public String update(Sp sp, RedirectAttributes redirectAttributes) {
-        String nomeObejto = sp.getNome();
+    public String update(Sp sp, InformacaoSp informacaoSp, RedirectAttributes redirectAttributes) {
+        String nomeObejto = sp.getNome().toUpperCase();
         List<Sp> spList = spService.findAllByNome(nomeObejto);
 
         for (Sp sp1 : spList) {
             if (!sp1.getId().equals(sp.getId())
-                    && sp1.getNome().equalsIgnoreCase(sp.getNome())
+                    && sp1.getNome().equalsIgnoreCase(nomeObejto)
                     && sp1.getTipoObjeto() == sp.getTipoObjeto()) {
                 redirectAttributes.addFlashAttribute("success", false);
-                redirectAttributes.addFlashAttribute("message", "Já existe um objeto do tipo " + sp.getTipoObjeto().getDescricaoObjeto() + " com o nome " + sp.getNome() + " cadastrado!");
+                redirectAttributes.addFlashAttribute("message", "Já existe um objeto do tipo " + sp.getTipoObjeto().getDescricaoObjeto() + " com o nome " + nomeObejto + " cadastrado!");
                 return Constantes.REDIRECT_LISTA_SP;
             }
         }
 
-        spService.update(sp);
+        sp.setInformacoes(spService.obterHistoricoObjeto(sp.getId()));
+        informacaoSp.setId(null);
+        informacaoSp.setDataManipulacao(LocalDateTime.now());
+        sp.getInformacoes().add(informacaoSp);
+
+        spService.createOrUpdate(sp);
 
         redirectAttributes.addFlashAttribute("success", true);
-        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome() + " atualizado com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objeto " + nomeObejto + " atualizado com sucesso!");
 
         return Constantes.REDIRECT_LISTA_SP;
     }
@@ -242,8 +233,8 @@ public class SpController {
     }
 
     private void equalizar(Sp sp, RedirectAttributes redirectAttributes) {
-        spService.update(sp);
+        spService.createOrUpdate(sp);
 
-        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome() + " equalizado com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome().toUpperCase() + " equalizado com sucesso!");
     }
 }

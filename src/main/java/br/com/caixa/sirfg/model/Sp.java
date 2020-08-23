@@ -7,11 +7,17 @@ import lombok.Data;
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -45,10 +51,19 @@ public class Sp {
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataPrd;
 
-    private String observacao;
+    @JoinColumn(name = "objetoId")
+    @OneToMany(cascade = CascadeType.ALL)
+    @OrderBy("dataManipulacao DESC")
+    private List<InformacaoSp> informacoes = new ArrayList<>();
 
     @Transient
     private List<String> SpList = new ArrayList<>();
+
+    @PrePersist
+    @PreUpdate
+    public void prepareStrings() {
+        nome = nome.toUpperCase();
+    }
 
     public String getDataFormatada(AmbienteEnum ambienteEnum) {
         switch (ambienteEnum) {
@@ -82,6 +97,6 @@ public class Sp {
     }
 
     public String getDataFormatada(LocalDateTime data) {
-        return DataFormatter.getDataFormatada(data);
+        return DataFormatter.getDataHoraFormatada(data);
     }
 }

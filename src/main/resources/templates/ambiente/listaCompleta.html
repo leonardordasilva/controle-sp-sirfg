@@ -1,28 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{index}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{index}">
+      xmlns:th="http://www.thymeleaf.org">
 
 <body>
 <section class="layout-content" layout:fragment="corpo">
-    <div role="main" class="container-fluid">
+    <div class="container-fluid" role="main">
         <div class="starter-template">
             <br/><br/><br/>
 
-            <div th:if="${message}" class="alert alert-dismissible fade show" th:classappend="${success} ? alert-success : alert-warning" role="alert">
+            <div class="alert alert-dismissible fade show" role="alert" th:classappend="${success} ? alert-success : alert-warning"
+                 th:if="${message}">
                 <div th:text="${message}"></div>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <button aria-label="Close" class="close" data-dismiss="alert" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
-            <a th:if="${ambienteList.isEmpty()}" href="#" class="btn btn-primary" id="addAmbienteButton">Adicionar Objeto</a>
+            <a class="btn btn-primary" href="#" id="addAmbienteButton" th:if="${ambienteList.isEmpty()}">Adicionar Objeto</a>
 
             <div th:if="${ambienteList.isEmpty()}"><br/><br/></div>
 
             <H2>Lista completa de Ambientes</H2>
 
-            <table id="ambienteTable" class="table">
+            <table class="table" id="ambienteTable">
                 <thead>
                 <tr th:align="center">
                     <th>Versão DES</th>
@@ -47,53 +48,39 @@
                     <td th:text="${ambiente.versaoPrd}"></td>
                     <td th:text="${ambiente.getDataPrdFormatada()}"></td>
                     <td>
-                        <a th:href="@{/ambiente/findById/(id=${ambiente.id})}" data-toggle="tooltip" class="btn btn-warning" id="ambienteEditButton" title="Editar"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-warning" data-toggle="tooltip" id="ambienteEditButton" th:href="@{/ambiente/findById/(id=${ambiente.id})}"
+                           title="Editar"><em class="fas fa-edit"></em></a>
                     </td>
                 </tr>
             </table>
         </div>
     </div>
 
-    <div class="modal fade" id="ambienteModal" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-        <form th:id="formAmbiente" method="post">
-            <div class="modal-dialog" style="max-width: 550px;" role="document">
+    <div aria-hidden="true" aria-labelledby="ModalLabel" class="modal fade" id="ambienteModal" role="dialog">
+        <form method="post" th:id="formAmbiente">
+            <div class="modal-dialog" role="document" style="max-width: 550px;">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 th:id="tituloModal" class="modal-title" id="modalLabel"/>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <h5 class="modal-title" id="modalLabel" th:id="tituloModal"/>
+                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" class="form-control" id="idEdit" name="id">
+                        <input class="form-control" id="idEdit" name="id" type="hidden">
 
                         <table class="table table-borderless">
                             <tr>
                                 <td>
                                     <div class="form-group">
-                                        <label for="versaoDesEdit" class="col-form-label">Versão Des:</label>
-                                        <input type="text" class="form-control" id="versaoDesEdit" name="versaoDes">
+                                        <label class="col-form-label" for="versaoDesEdit">Versão Des:</label>
+                                        <input class="form-control" id="versaoDesEdit" name="versaoDes" type="text">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-group">
-                                        <label for="dataDesEdit" class="col-form-label">Data Versão DES:</label>
-                                        <input type="text" class="form-control" id="dataDesEdit" name="dataDes" readonly>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div class="form-group">
-                                        <label for="versaoTqsEdit" class="col-form-label">Versão TQS:</label>
-                                        <input type="text" class="form-control" id="versaoTqsEdit" name="versaoTqs">
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <label for="dataTqsEdit" class="col-form-label">Data Versão TQS:</label>
-                                        <input type="text" class="form-control" id="dataTqsEdit" name="dataTqs" readonly>
+                                        <label class="col-form-label" for="dataDesEdit">Data Versão DES:</label>
+                                        <input class="form-control" id="dataDesEdit" name="dataDes" readonly type="text">
                                     </div>
                                 </td>
                             </tr>
@@ -101,15 +88,14 @@
                             <tr>
                                 <td>
                                     <div class="form-group">
-                                        <label for="versaoHmpEdit" class="col-form-label">Versão HMP:</label>
-                                        <input type="text" class="form-control" id="versaoHmpEdit" name="versaoHmp">
+                                        <label class="col-form-label" for="versaoTqsEdit">Versão TQS:</label>
+                                        <input class="form-control" id="versaoTqsEdit" name="versaoTqs" type="text">
                                     </div>
                                 </td>
-
                                 <td>
                                     <div class="form-group">
-                                        <label for="dataHmpEdit" class="col-form-label">Data Versão HMP:</label>
-                                        <input type="text" class="form-control" id="dataHmpEdit" name="dataHmp" readonly>
+                                        <label class="col-form-label" for="dataTqsEdit">Data Versão TQS:</label>
+                                        <input class="form-control" id="dataTqsEdit" name="dataTqs" readonly type="text">
                                     </div>
                                 </td>
                             </tr>
@@ -117,15 +103,31 @@
                             <tr>
                                 <td>
                                     <div class="form-group">
-                                        <label for="versaoPrdEdit" class="col-form-label">Versão PRD:</label>
-                                        <input type="text" class="form-control" id="versaoPrdEdit" name="versaoPrd">
+                                        <label class="col-form-label" for="versaoHmpEdit">Versão HMP:</label>
+                                        <input class="form-control" id="versaoHmpEdit" name="versaoHmp" type="text">
                                     </div>
                                 </td>
 
                                 <td>
                                     <div class="form-group">
-                                        <label for="dataPrdEdit" class="col-form-label">Data Versão PRD:</label>
-                                        <input type="text" class="form-control" id="dataPrdEdit" name="dataPrd" readonly>
+                                        <label class="col-form-label" for="dataHmpEdit">Data Versão HMP:</label>
+                                        <input class="form-control" id="dataHmpEdit" name="dataHmp" readonly type="text">
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="versaoPrdEdit">Versão PRD:</label>
+                                        <input class="form-control" id="versaoPrdEdit" name="versaoPrd" type="text">
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="dataPrdEdit">Data Versão PRD:</label>
+                                        <input class="form-control" id="dataPrdEdit" name="dataPrd" readonly type="text">
                                     </div>
                                 </td>
                             </tr>
@@ -133,8 +135,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">SAIR</button>
-                        <button th:id="tituloBotaoModal" type="submit" class="btn btn-primary"/>
+                        <button class="btn btn-secondary" data-dismiss="modal" type="button">SAIR</button>
+                        <button class="btn btn-primary" th:id="tituloBotaoModal" type="submit"/>
                     </div>
                 </div>
             </div>

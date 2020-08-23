@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DataFormatter {
-    public static String getDataFormatada(LocalDateTime data) {
+    public static String getDataHoraFormatada(LocalDateTime data) {
         if (data != null) {
             return data.format(getDateTimeFormatter());
         }
@@ -12,7 +12,7 @@ public class DataFormatter {
         return "";
     }
 
-    public static String getDataAmbienteFormatada(LocalDateTime data) {
+    public static String getDataFormatada(LocalDateTime data) {
         if (data != null) {
             return data.format(getDateFormatter());
         }
@@ -24,7 +24,7 @@ public class DataFormatter {
         return DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     }
 
-    private static DateTimeFormatter getDateFormatter() {
+    protected static DateTimeFormatter getDateFormatter() {
         return DateTimeFormatter.ofPattern("dd/MM/yyyy");
     }
 }

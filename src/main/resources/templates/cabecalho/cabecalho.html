@@ -6,22 +6,22 @@
     <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav mr-auto" th:if="${ambiente}">
             <li class="nav-item">
-                <a class="nav-link" th:classappend="${ambiente == 'home' ? 'active' : ''}" href="/listaSp">Lista completa de Objetos |</a>
+                <a class="nav-link" href="/listaSp" th:classappend="${ambiente == 'home' ? 'active' : ''}">Lista completa de Objetos |</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" th:classappend="${ambiente == 'desTqs' ? 'active' : ''}" href="/listaDesTqs">Lista de Objetos para ir a TQS |</a>
+                <a class="nav-link" href="/listaDesTqs" th:classappend="${ambiente == 'desTqs' ? 'active' : ''}">Lista de Objetos para ir a TQS |</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" th:classappend="${ambiente == 'tqsHmp' ? 'active' : ''}" href="/listaTqsHmp">Lista de Objetos para ir a HMP |</a>
+                <a class="nav-link" href="/listaTqsHmp" th:classappend="${ambiente == 'tqsHmp' ? 'active' : ''}">Lista de Objetos para ir a HMP |</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" th:classappend="${ambiente == 'hmpPrd' ? 'active' : ''}" href="/listaHmpPrd">Lista de Objetos para ir a PRD</a>
+                <a class="nav-link" href="/listaHmpPrd" th:classappend="${ambiente == 'hmpPrd' ? 'active' : ''}">Lista de Objetos para ir a PRD</a>
             </li>
         </ul>
-        <div style="color:#FFFFFF" class="nav-item active">
+        <div class="nav-item active" style="color:#FFFFFF">
             <h5 th:text="${ambiente} ? 'Controle de Objetos - SIRFG' : 'Controle de Ambientes - SIRFG'"></h5>
         </div>
     </div>

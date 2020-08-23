@@ -1,7 +1,9 @@
 package br.com.caixa.sirfg.service;
 
+import br.com.caixa.sirfg.model.InformacaoSp;
 import br.com.caixa.sirfg.model.Sp;
 import br.com.caixa.sirfg.model.enumerator.TipoObjetoEnum;
+import br.com.caixa.sirfg.repository.InformacoesObjetoRepository;
 import br.com.caixa.sirfg.repository.SpRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +14,14 @@ import java.util.Optional;
 public class SpService {
     private final SpRepository spRepository;
 
-    public SpService(SpRepository spRepository) {
+    private final InformacoesObjetoRepository objetoRepository;
+
+    public SpService(SpRepository spRepository, InformacoesObjetoRepository objetoRepository) {
         this.spRepository = spRepository;
+        this.objetoRepository = objetoRepository;
     }
 
-    public void create(Sp sp) {
+    public void createOrUpdate(Sp sp) {
         spRepository.save(sp);
     }
 
@@ -24,8 +29,8 @@ public class SpService {
         return spRepository.findAll();
     }
 
-    public Optional<Sp> findById(Long Id) {
-        return spRepository.findById(Id);
+    public Optional<Sp> findById(Long id) {
+        return spRepository.findById(id);
     }
 
     public List<Sp> findAllByNome(String nomeObejto) {
@@ -44,10 +49,6 @@ public class SpService {
         return spRepository.findAllHmpPrd();
     }
 
-    public void update(Sp sp) {
-        spRepository.save(sp);
-    }
-
     public void delete(Long Id) {
         spRepository.deleteById(Id);
     }
@@ -62,5 +63,9 @@ public class SpService {
         }
 
         return spRetorno;
+    }
+
+    public List<InformacaoSp> obterHistoricoObjeto(Long id) {
+        return objetoRepository.findAllByObjetoId(id);
     }
 }
