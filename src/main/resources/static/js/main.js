@@ -91,58 +91,8 @@ $('document').ready(function () {
         $(this).val('');
     });
 
-    $('#addSpButton').on('click', function (event) {
-        event.preventDefault();
-        $('#formObj').trigger("reset");
-
-        $('#formObj').attr("action", "/adicionar");
-        $('#tituloModal').text("Adicionar Objeto");
-        $('#tituloBotaoModal').text("ADICIONAR");
-
-        $('#modalObj').modal({
-            keyboard: true
-        });
-    });
-
-    $('#mainTable tbody').on('click', 'tr td a#editButton', function (event) {
-        event.preventDefault();
-        var href = $(this).attr('href');
-
-        $('#formObj').attr("action", "/atualizar");
-        $('#tituloModal').text("Atualizar Objeto");
-        $('#tituloBotaoModal').text("ATUALIZAR");
-
-        $.get(href, function (sp, status) {
-            var tipoObjetoSelecionado = sp.tipoObjeto;
-
-            $('#id').val(sp.id);
-            $('#nome').val(sp.nome);
-            $('#' + tipoObjetoSelecionado).prop('checked', true);
-            $('#dataDes').val(sp.dataDesFormatada);
-            $('#dataTqs').val(sp.dataTqsFormatada);
-            $('#dataHmp').val(sp.dataHmpFormatada);
-            $('#dataPrd').val(sp.dataPrdFormatada);
-            $('#observacao').val(sp.observacao);
-        });
-
-        $('#modalObj').modal({
-            keyboard: true
-        });
-    });
-
-    $('#mainTable tbody').on('click', 'tr td a#deleteButton', function (event) {
-        event.preventDefault();
-        var href = $(this).attr('href');
-
-        $.get(href, function (sp, status) {
-            $('#idDelete').val(sp.id);
-            $('#nomeDelete').val(sp.nome);
-            $('#nomeSpExcluir').text(sp.nome);
-        });
-
-        $('#deleteModal').modal({
-            keyboard: true
-        });
+    $('#modalObj').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
     });
 
     $('#mainTable tbody').on('click', 'tr td a#equalizarButton', function (event) {

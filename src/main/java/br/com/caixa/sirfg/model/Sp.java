@@ -39,16 +39,16 @@ public class Sp {
     @NotNull
     private TipoObjetoEnum tipoObjeto;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    @DateTimeFormat
     private LocalDateTime dataDes;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    @DateTimeFormat
     private LocalDateTime dataTqs;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    @DateTimeFormat
     private LocalDateTime dataHmp;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+    @DateTimeFormat
     private LocalDateTime dataPrd;
 
     @JoinColumn(name = "objetoId")
@@ -78,22 +78,6 @@ public class Sp {
             default:
                 return null;
         }
-    }
-
-    public String getDataDesFormatada() {
-        return getDataFormatada(AmbienteEnum.DES);
-    }
-
-    public String getDataTqsFormatada() {
-        return getDataFormatada(AmbienteEnum.TQS);
-    }
-
-    public String getDataHmpFormatada() {
-        return getDataFormatada(AmbienteEnum.HMP);
-    }
-
-    public String getDataPrdFormatada() {
-        return getDataFormatada(AmbienteEnum.PRD);
     }
 
     public String getDataFormatada(LocalDateTime data) {
