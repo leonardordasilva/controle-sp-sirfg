@@ -39,16 +39,16 @@ public class Sp {
     @NotNull
     private TipoObjetoEnum tipoObjeto;
 
-    @DateTimeFormat
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataDes;
 
-    @DateTimeFormat
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataTqs;
 
-    @DateTimeFormat
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataHmp;
 
-    @DateTimeFormat
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataPrd;
 
     @JoinColumn(name = "objetoId")
