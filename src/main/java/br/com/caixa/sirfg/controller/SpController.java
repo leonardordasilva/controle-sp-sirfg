@@ -235,6 +235,6 @@ public class SpController {
     private void equalizar(Sp sp, RedirectAttributes redirectAttributes) {
         spService.createOrUpdate(sp);
 
-        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome().toUpperCase() + " equalizado com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome() + " equalizado com sucesso!");
     }
 }

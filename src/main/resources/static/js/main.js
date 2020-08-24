@@ -1,4 +1,6 @@
 $('document').ready(function () {
+    montarDateRangePicker();
+
     $('[data-toggle="tooltip"]').tooltip();
 
     $('#mainTable').DataTable({
@@ -43,52 +45,100 @@ $('document').ready(function () {
         }
     });
 
-    $('input[name^="data"]').daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
-        minYear: 2000,
-        maxYear: parseInt(moment().format('YYYY'), 10),
-        timePicker: true,
-        timePicker24Hour: true,
-        startDate: moment().startOf('hour minute'),
-        autoUpdateInput: false,
-        locale: {
-            "format": "DD/MM/YYYY HH:mm",
-            "applyLabel": "Aplicar",
-            "cancelLabel": "Limpar",
-            "daysOfWeek": [
-                "Dom",
-                "Seg",
-                "Ter",
-                "Qua",
-                "Qui",
-                "Sex",
-                "Sab"
-            ],
-            "monthNames": [
-                "Janeiro",
-                "Fevereiro",
-                "Março",
-                "Abril",
-                "Maio",
-                "Junho",
-                "Julho",
-                "Agosto",
-                "Setembro",
-                "Outubro",
-                "Novembro",
-                "Dezembro"
-            ],
-            "firstDay": 1
-        }
+    function montarDateRangePicker() {
+        $('input[name^="data"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 2000,
+            maxYear: parseInt(moment().format('YYYY'), 10),
+            timePicker: true,
+            timePicker24Hour: true,
+            startDate: moment().startOf('hour minute'),
+            autoUpdateInput: false,
+            locale: {
+                "format": "DD/MM/YYYY HH:mm",
+                "applyLabel": "Aplicar",
+                "cancelLabel": "Limpar",
+                "daysOfWeek": [
+                    "Dom",
+                    "Seg",
+                    "Ter",
+                    "Qua",
+                    "Qui",
+                    "Sex",
+                    "Sab"
+                ],
+                "monthNames": [
+                    "Janeiro",
+                    "Fevereiro",
+                    "Março",
+                    "Abril",
+                    "Maio",
+                    "Junho",
+                    "Julho",
+                    "Agosto",
+                    "Setembro",
+                    "Outubro",
+                    "Novembro",
+                    "Dezembro"
+                ],
+                "firstDay": 1
+            }
+        });
+
+        $('input[name^="data"]').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('DD/MM/YYYY HH:mm'));
+        });
+
+        $('input[name^="data"]').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('');
+        });
+    }
+
+    $('#mainTable').on('draw.dt', function () {
+        montarDateRangePicker();
     });
 
-    $('input[name^="data"]').on('apply.daterangepicker', function (ev, picker) {
-        $(this).val(picker.startDate.format('DD/MM/YYYY HH:mm'));
-    });
-
-    $('input[name^="data"]').on('cancel.daterangepicker', function (ev, picker) {
-        $(this).val('');
+    $('#editModal').on('shown.bs.modal', function(e) {
+        $('input[name^="data"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 2000,
+            maxYear: parseInt(moment().format('YYYY'), 10),
+            timePicker: true,
+            timePicker24Hour: true,
+            startDate: moment().startOf('hour minute'),
+            autoUpdateInput: false,
+            locale: {
+                "format": "DD/MM/YYYY HH:mm",
+                "applyLabel": "Aplicar",
+                "cancelLabel": "Limpar",
+                "daysOfWeek": [
+                    "Dom",
+                    "Seg",
+                    "Ter",
+                    "Qua",
+                    "Qui",
+                    "Sex",
+                    "Sab"
+                ],
+                "monthNames": [
+                    "Janeiro",
+                    "Fevereiro",
+                    "Março",
+                    "Abril",
+                    "Maio",
+                    "Junho",
+                    "Julho",
+                    "Agosto",
+                    "Setembro",
+                    "Outubro",
+                    "Novembro",
+                    "Dezembro"
+                ],
+                "firstDay": 1
+            }
+        });
     });
 
     $('#modalObj').on('hidden.bs.modal', function () {
