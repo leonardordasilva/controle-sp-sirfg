@@ -65,21 +65,6 @@ public class Sp {
         nome = nome.toUpperCase();
     }
 
-    public String getDataFormatada(AmbienteEnum ambienteEnum) {
-        switch (ambienteEnum) {
-            case DES:
-                return getDataFormatada(dataDes);
-            case TQS:
-                return getDataFormatada(dataTqs);
-            case HMP:
-                return getDataFormatada(dataHmp);
-            case PRD:
-                return getDataFormatada(dataPrd);
-            default:
-                return null;
-        }
-    }
-
     public String getDataFormatada(LocalDateTime data) {
         return DataFormatter.getDataHoraFormatada(data);
     }

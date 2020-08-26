@@ -84,47 +84,6 @@
                             </a>
                         </span>
 
-                        <div aria-hidden="true" aria-labelledby="historicoModalLabel" class="modal fade" id="historicoModal" role="dialog"
-                             th:attrappend="id=${sp.id}">
-                            <div class="modal-dialog modal-xl" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Histórico de Mudanças - <span th:text="${sp.nome}"/></h5>
-
-                                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-
-                                    <table class="table table-striped" id="historyTable">
-                                        <thead>
-                                        <tr>
-                                            <th width="20%">Data</th>
-
-                                            <th width="20%">Usuário</th>
-
-                                            <th width="60%">Motivo</th>
-                                        </tr>
-                                        </thead>
-
-                                        <tbody>
-                                        <tr th:each="historico:${sp.informacoes}">
-                                            <td th:text="${historico.dataManipulacaoFormatada}"/>
-
-                                            <td th:text="${historico.usuario}"/>
-
-                                            <td th:text="${historico.motivo}"/>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
-                                    <div class="modal-footer">
-                                        <button class="btn btn-secondary" data-dismiss="modal" type="button">SAIR</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div aria-hidden="true" aria-labelledby="editModalLabel" class="modal fade" data-toggle="validator" id="editModal"
                              role="dialog" th:attrappend="id=${sp.id}">
                             <form method="post" th:action="@{/atualizar}">
@@ -304,6 +263,47 @@
                                     </div>
                                 </div>
                             </form>
+                        </div>
+
+                        <div aria-hidden="true" aria-labelledby="historicoModalLabel" class="modal fade" id="historicoModal" role="dialog"
+                             th:attrappend="id=${sp.id}">
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Histórico de Mudanças - <span th:text="${sp.nome}"/></h5>
+
+                                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <table class="table table-striped" id="historyTable">
+                                        <thead>
+                                        <tr>
+                                            <th width="20%">Data</th>
+
+                                            <th width="20%">Usuário</th>
+
+                                            <th width="60%">Motivo</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr th:each="historico:${sp.informacoes}">
+                                            <td th:text="${#temporals.format(historico.dataManipulacao, 'dd/MM/yyyy')}"/>
+
+                                            <td th:text="${historico.usuario}"/>
+
+                                            <td th:text="${historico.motivo}"/>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" data-dismiss="modal" type="button">SAIR</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </td>
                 </tr>
