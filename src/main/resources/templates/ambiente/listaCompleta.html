@@ -12,14 +12,19 @@
             <div class="alert alert-dismissible fade show" role="alert" th:classappend="${success} ? alert-success : alert-warning"
                  th:if="${message}">
                 <div th:text="${message}"></div>
+
                 <button aria-label="Close" class="close" data-dismiss="alert" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
-            <a class="btn btn-primary" href="#" id="addAmbienteButton" th:if="${ambienteList.isEmpty()}">Adicionar Objeto</a>
+            <span data-target="#ambienteModal" data-toggle="modal">
+                <a class="btn btn-primary" data-toggle="tooltip" id="addObjButton" th:if="${ambienteList.isEmpty()}">Adicionar Adicionar Ambiente</a>
+            </span>
 
-            <div th:if="${ambienteList.isEmpty()}"><br/><br/></div>
+            <div th:if="${ambienteList.isEmpty()}">
+                <br/><br/>
+            </div>
 
             <H2>Lista completa de Ambientes</H2>
 
@@ -27,116 +32,231 @@
                 <thead>
                 <tr th:align="center">
                     <th>Versão DES</th>
+
                     <th>Data versão DES</th>
+
                     <th>Versão TQS</th>
+
                     <th>Data versão TQS</th>
+
                     <th>Versão HMP</th>
+
                     <th>Data versão HMP</th>
+
                     <th>Versão PRD</th>
+
                     <th>Data versão PRD</th>
+
                     <th>Ações</th>
                 </tr>
                 </thead>
 
+                <tbody>
                 <tr th:align="center" th:each="ambiente:${ambienteList}">
                     <td th:text="${ambiente.versaoDes}"></td>
-                    <td th:text="${ambiente.getDataDesFormatada()}"></td>
-                    <td th:text="${ambiente.versaoTqs}"></td>
-                    <td th:text="${ambiente.getDataTqsFormatada()}"></td>
-                    <td th:text="${ambiente.versaoHmp}"></td>
-                    <td th:text="${ambiente.getDataHmpFormatada()}"></td>
-                    <td th:text="${ambiente.versaoPrd}"></td>
-                    <td th:text="${ambiente.getDataPrdFormatada()}"></td>
+
+                    <td th:text="${#temporals.format(ambiente.dataDes, 'dd/MM/yyyy')}"/>
+
+                    <td th:text="${ambiente.versaoTqs}"/>
+
+                    <td th:text="${#temporals.format(ambiente.dataTqs, 'dd/MM/yyyy')}"/>
+
+                    <td th:text="${ambiente.versaoHmp}"/>
+
+                    <td th:text="${#temporals.format(ambiente.dataHmp, 'dd/MM/yyyy')}"/>
+
+                    <td th:text="${ambiente.versaoPrd}"/>
+
+                    <td th:text="${#temporals.format(ambiente.dataPrd, 'dd/MM/yyyy')}"/>
+
                     <td>
-                        <a class="btn btn-warning" data-toggle="tooltip" id="ambienteEditButton" th:href="@{/ambiente/findById/(id=${ambiente.id})}"
-                           title="Editar"><em class="fas fa-edit"></em></a>
+                        <span data-target="#editAmbienteModal" data-toggle="modal" th:attrappend="data-target=${ambiente.id}">
+                            <a class="btn btn-warning" data-toggle="tooltip" id="editButton" title="Editar">
+                                <em class="fas fa-edit"></em>
+                            </a>
+                        </span>
+
+                        <div aria-hidden="true" aria-labelledby="ModalLabel" class="modal fade" id="editAmbienteModal" role="dialog"
+                             th:attrappend="id=${ambiente.id}">
+                            <form method="post" th:action="@{/ambiente/atualizar}">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalLabel">Alterar Ambiente</h5>
+
+                                            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="modal-body text-left">
+                                            <div class="form-group>">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input id="id" name="id" th:value="${ambiente.id}" type="hidden"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group>">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="versaoDesEdit">Versão Des:</label>
+
+                                                        <input class="form-control" id="versaoDesEdit" name="versaoDes"
+                                                               th:value="${ambiente.versaoDes}" type="text"/>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="dataDesEdit">Data Versão DES:</label>
+
+                                                        <input class="form-control" id="dataDesEdit" name="dataDes" readonly
+                                                               th:value="${#temporals.format(ambiente.dataDes, 'dd/MM/yyyy')}" type="text"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="versaoTqsEdit">Versão TQS:</label>
+
+                                                        <input class="form-control" id="versaoTqsEdit" name="versaoTqs"
+                                                               th:value="${ambiente.versaoTqs}" type="text"/>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="dataTqsEdit">Data Versão TQS:</label>
+
+                                                        <input class="form-control" id="dataTqsEdit" name="dataTqs" readonly
+                                                               th:value="${#temporals.format(ambiente.dataTqs, 'dd/MM/yyyy')}" type="text"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="versaoHmpEdit">Versão HMP:</label>
+
+                                                        <input class="form-control" id="versaoHmpEdit" name="versaoHmp"
+                                                               th:value="${ambiente.versaoHmp}" type="text"/>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="dataHmpEdit">Data Versão HMP:</label>
+
+                                                        <input class="form-control" id="dataHmpEdit" name="dataHmp" readonly
+                                                               th:value="${#temporals.format(ambiente.dataHmp, 'dd/MM/yyyy')}" type="text"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="versaoPrdEdit">Versão PRD:</label>
+
+                                                        <input class="form-control" id="versaoPrdEdit" name="versaoPrd"
+                                                               th:value="${ambiente.versaoPrd}" type="text"/>
+                                                    </div>
+
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="dataPrdEdit">Data Versão PRD:</label>
+
+                                                        <input class="form-control" id="dataPrdEdit" name="dataPrd" readonly
+                                                               th:value="${#temporals.format(ambiente.dataPrd, 'dd/MM/yyyy')}" type="text"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" data-dismiss="modal" type="button">SAIR</button>
+
+                                            <button class="btn btn-primary" type="submit">ATUALIZAR</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </td>
                 </tr>
+                </tbody>
             </table>
         </div>
     </div>
 
     <div aria-hidden="true" aria-labelledby="ModalLabel" class="modal fade" id="ambienteModal" role="dialog">
-        <form method="post" th:id="formAmbiente">
-            <div class="modal-dialog" role="document" style="max-width: 550px;">
+        <form method="post" th:action="@{/ambiente/adicionar}">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalLabel" th:id="tituloModal"/>
+                        <h5 class="modal-title" id="modalLabel">Adicionar Ambiente</h5>
+
                         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <input class="form-control" id="idEdit" name="id" type="hidden">
 
-                        <table class="table table-borderless">
-                            <tr>
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="versaoDesEdit">Versão Des:</label>
-                                        <input class="form-control" id="versaoDesEdit" name="versaoDes" type="text">
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="dataDesEdit">Data Versão DES:</label>
-                                        <input class="form-control" id="dataDesEdit" name="dataDes" readonly type="text">
-                                    </div>
-                                </td>
-                            </tr>
+                    <div class="modal-body text-left">
+                        <div class="form-group>">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="col-form-label" for="versaoDesEdit">Versão Des:</label>
 
-                            <tr>
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="versaoTqsEdit">Versão TQS:</label>
-                                        <input class="form-control" id="versaoTqsEdit" name="versaoTqs" type="text">
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="dataTqsEdit">Data Versão TQS:</label>
-                                        <input class="form-control" id="dataTqsEdit" name="dataTqs" readonly type="text">
-                                    </div>
-                                </td>
-                            </tr>
+                                    <input class="form-control" id="versaoDesEdit" name="versaoDes" type="text"/>
+                                </div>
 
-                            <tr>
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="versaoHmpEdit">Versão HMP:</label>
-                                        <input class="form-control" id="versaoHmpEdit" name="versaoHmp" type="text">
-                                    </div>
-                                </td>
+                                <div class="col">
+                                    <label class="col-form-label" for="dataDesEdit">Data Versão DES:</label>
 
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="dataHmpEdit">Data Versão HMP:</label>
-                                        <input class="form-control" id="dataHmpEdit" name="dataHmp" readonly type="text">
-                                    </div>
-                                </td>
-                            </tr>
+                                    <input class="form-control" id="dataDesEdit" name="dataDes" readonly type="text"/>
+                                </div>
+                            </div>
 
-                            <tr>
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="versaoPrdEdit">Versão PRD:</label>
-                                        <input class="form-control" id="versaoPrdEdit" name="versaoPrd" type="text">
-                                    </div>
-                                </td>
+                            <div class="row">
+                                <div class="col">
+                                    <label class="col-form-label" for="versaoTqsEdit">Versão TQS:</label>
 
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="dataPrdEdit">Data Versão PRD:</label>
-                                        <input class="form-control" id="dataPrdEdit" name="dataPrd" readonly type="text">
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                                    <input class="form-control" id="versaoTqsEdit" name="versaoTqs" type="text"/>
+                                </div>
+
+                                <div class="col">
+                                    <label class="col-form-label" for="dataTqsEdit">Data Versão TQS:</label>
+
+                                    <input class="form-control" id="dataTqsEdit" name="dataTqs" readonly type="text"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label class="col-form-label" for="versaoHmpEdit">Versão HMP:</label>
+
+                                    <input class="form-control" id="versaoHmpEdit" name="versaoHmp" type="text"/>
+                                </div>
+
+                                <div class="col">
+                                    <label class="col-form-label" for="dataHmpEdit">Data Versão HMP:</label>
+
+                                    <input class="form-control" id="dataHmpEdit" name="dataHmp" readonly type="text"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label class="col-form-label" for="versaoPrdEdit">Versão PRD:</label>
+
+                                    <input class="form-control" id="versaoPrdEdit" name="versaoPrd" type="text"/>
+                                </div>
+
+                                <div class="col">
+                                    <label class="col-form-label" for="dataPrdEdit">Data Versão PRD:</label>
+
+                                    <input class="form-control" id="dataPrdEdit" name="dataPrd" readonly type="text"/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="modal-footer">
                         <button class="btn btn-secondary" data-dismiss="modal" type="button">SAIR</button>
-                        <button class="btn btn-primary" th:id="tituloBotaoModal" type="submit"/>
+
+                        <button class="btn btn-primary" type="submit">ADICIONAR</button>
                     </div>
                 </div>
             </div>

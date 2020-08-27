@@ -1,7 +1,3 @@
 #addObjButton, #deleteButton {
     color: #FFFFFF;
 }
-
-#modalObjDialog, #editModalDialog {
-    max-width: 550px;
-}

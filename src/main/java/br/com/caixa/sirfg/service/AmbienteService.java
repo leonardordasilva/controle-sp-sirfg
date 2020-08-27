@@ -19,10 +19,6 @@ public class AmbienteService {
         return ambienteRepository.findAll();
     }
 
-    public Optional<Ambiente> findById(Long id) {
-        return ambienteRepository.findById(id);
-    }
-
     public void create(Ambiente ambiente) {
         ambienteRepository.save(ambiente);
     }

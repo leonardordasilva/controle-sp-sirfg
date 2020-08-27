@@ -86,9 +86,9 @@
 
                         <div aria-hidden="true" aria-labelledby="editModalLabel" class="modal fade" data-toggle="validator" id="editModal"
                              role="dialog" th:attrappend="id=${sp.id}">
-                            <form method="post" th:action="@{/atualizar}">
-                                <div class="modal-dialog" id="editModalDialog" role="document">
-                                    <div class="modal-content">
+                            <div class="modal-dialog" id="editModalDialog" role="document">
+                                <div class="modal-content">
+                                    <form method="post" th:action="@{/atualizar}">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="editModalLabel">Atualizar Objeto</h5>
 
@@ -97,131 +97,131 @@
                                             </button>
                                         </div>
 
-                                        <div class="modal-body">
-                                            <input class="form-control" id="id" name="id" th:value="${sp.id}" type="hidden"/>
+                                        <div class="modal-body text-left">
+                                            <div class="form-group>">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input id="id" name="id" th:value="${sp.id}" type="hidden"/>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                            <table class="table table-borderless">
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <div class="form-group">
-                                                            <label class="col-form-label" for="nome">Nome:</label>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="nome">Nome:</label>
 
-                                                            <input class="form-control" id="nome" maxlength="8" name="nome" required
-                                                                   th:value="${sp.nome}" type="text"/>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                        <input class="form-control" id="nome" maxlength="8" name="nome" required th:value="${sp.nome}"
+                                                               type="text"/>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <div class="form-group">
-                                                            <label class="col-form-label" for="objetos">Tipo de Objeto:</label>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="objetos">Tipo de Objeto:</label>
 
-                                                            <div id="objetos">
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" id="SP" name="tipoObjeto" required
-                                                                           th:checked="${#strings.equals(sp.tipoObjeto.codigoObjeto, 'SP')}"
-                                                                           type="radio" value="SP"/>
+                                                        <div id="objetos">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" id="SP" name="tipoObjeto" required
+                                                                       th:checked="${#strings.equals(sp.tipoObjeto.codigoObjeto, 'SP')}" type="radio"
+                                                                       value="SP"/>
 
-                                                                    <label class="form-check-label" for="SP">SP</label>
-                                                                </div>
+                                                                <label class="form-check-label" for="SP">SP</label>
+                                                            </div>
 
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" id="SP_CARGA" name="tipoObjeto"
-                                                                           th:checked="${#strings.equals(sp.tipoObjeto.codigoObjeto, 'SP_CARGA')}"
-                                                                           type="radio" value="SP_CARGA"/>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" id="SP_CARGA" name="tipoObjeto"
+                                                                       th:checked="${#strings.equals(sp.tipoObjeto.codigoObjeto, 'SP_CARGA')}"
+                                                                       type="radio" value="SP_CARGA"/>
 
-                                                                    <label class="form-check-label" for="SP_CARGA">SP de Carga</label>
-                                                                </div>
+                                                                <label class="form-check-label" for="SP_CARGA">SP de Carga</label>
+                                                            </div>
 
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" id="BIND" name="tipoObjeto"
-                                                                           th:checked="${#strings.equals(sp.tipoObjeto.codigoObjeto, 'BIND')}"
-                                                                           type="radio" value="BIND"/>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" id="BIND" name="tipoObjeto"
+                                                                       th:checked="${#strings.equals(sp.tipoObjeto.codigoObjeto, 'BIND')}"
+                                                                       type="radio" value="BIND"/>
 
-                                                                    <label class="form-check-label" for="BIND">BIND</label>
-                                                                </div>
+                                                                <label class="form-check-label" for="BIND">BIND</label>
+                                                            </div>
 
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" id="COBOL" name="tipoObjeto"
-                                                                           th:checked="${#strings.equals(sp.tipoObjeto.codigoObjeto, 'COBOL')}"
-                                                                           type="radio" value="COBOL"/>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" id="COBOL" name="tipoObjeto"
+                                                                       th:checked="${#strings.equals(sp.tipoObjeto.codigoObjeto, 'COBOL')}"
+                                                                       type="radio" value="COBOL"/>
 
-                                                                    <label class="form-check-label" for="COBOL">COBOL</label>
-                                                                </div>
+                                                                <label class="form-check-label" for="COBOL">COBOL</label>
+                                                            </div>
 
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" id="JCL" name="tipoObjeto"
-                                                                           th:checked="${#strings.equals(sp.tipoObjeto.codigoObjeto, 'JCL')}"
-                                                                           type="radio" value="JCL"/>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" id="JCL" name="tipoObjeto"
+                                                                       th:checked="${#strings.equals(sp.tipoObjeto.codigoObjeto, 'JCL')}"
+                                                                       type="radio" value="JCL"/>
 
-                                                                    <label class="form-check-label" for="JCL">JCL</label>
-                                                                </div>
+                                                                <label class="form-check-label" for="JCL">JCL</label>
                                                             </div>
                                                         </div>
-                                                    </td>
-                                                </tr>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <label class="col-form-label" for="dataDes">Data Versão DES:</label>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="dataDes">Data Versão DES:</label>
 
-                                                            <input class="form-control" id="dataDes" name="dataDes" readonly required
-                                                                   th:value="${#temporals.format(sp.dataDes, 'dd/MM/yyyy HH:mm')}" type="text"/>
-                                                        </div>
-                                                    </td>
+                                                        <input class="form-control" id="dataDes" name="dataDes" readonly required
+                                                               th:value="${#temporals.format(sp.dataDes, 'dd/MM/yyyy HH:mm')}" type="text"/>
+                                                    </div>
 
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <label class="col-form-label" for="dataTqs">Data Versão TQS:</label>
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="dataTqs">Data Versão TQS:</label>
 
-                                                            <input class="form-control" id="dataTqs" name="dataTqs" readonly
-                                                                   th:value="${#temporals.format(sp.dataTqs, 'dd/MM/yyyy HH:mm')}" type="text"/>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                        <input class="form-control" id="dataTqs" name="dataTqs" readonly
+                                                               th:value="${#temporals.format(sp.dataTqs, 'dd/MM/yyyy HH:mm')}" type="text"/>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <label class="col-form-label" for="dataHmp">Data Versão HMP:</label>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="dataHmp">Data Versão HMP:</label>
 
-                                                            <input class="form-control" id="dataHmp" name="dataHmp" readonly
-                                                                   th:value="${#temporals.format(sp.dataHmp, 'dd/MM/yyyy HH:mm')}" type="text"/>
-                                                        </div>
-                                                    </td>
+                                                        <input class="form-control" id="dataHmp" name="dataHmp" readonly
+                                                               th:value="${#temporals.format(sp.dataHmp, 'dd/MM/yyyy HH:mm')}" type="text"/>
+                                                    </div>
 
-                                                    <td>
-                                                        <div class="form-group">
-                                                            <label class="col-form-label" for="dataPrd">Data Versão PRD:</label>
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="dataPrd">Data Versão PRD:</label>
 
-                                                            <input class="form-control" id="dataPrd" name="dataPrd" readonly
-                                                                   th:value="${#temporals.format(sp.dataPrd, 'dd/MM/yyyy HH:mm')}" type="text"/>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                        <input class="form-control" id="dataPrd" name="dataPrd" readonly
+                                                               th:value="${#temporals.format(sp.dataPrd, 'dd/MM/yyyy HH:mm')}" type="text"/>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <div class="form-group">
-                                                            <label class="col-form-label" for="usuario">Matrícula (C ou F) do Usuário:</label>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="usuario">Matrícula (C ou F) do Usuário:</label>
 
-                                                            <input class="form-control" id="usuario" name="usuario" required type="text"/>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                        <input class="form-control" id="usuario" name="usuario" required type="text"/>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <div class="form-group">
-                                                            <label class="col-form-label" for="motivo">Motivo da Criação/Modificação:</label>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <label class="col-form-label" for="motivo">Motivo da Criação/Modificação:</label>
 
-                                                            <textarea class="form-control" id="motivo" name="motivo" required rows="2"></textarea>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                                        <textarea class="form-control" id="motivo" name="motivo" required rows="3"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="modal-footer">
@@ -229,9 +229,9 @@
 
                                             <button class="btn btn-primary" type="submit">ATUALIZAR</button>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
                         </div>
 
                         <div aria-hidden="true" aria-labelledby="deleteModalLabel" class="modal fade" id="deleteModal" role="dialog"
@@ -324,114 +324,108 @@
                         </button>
                     </div>
 
-                    <div class="modal-body">
-                        <table class="table table-borderless">
-                            <tr>
-                                <td colspan="2">
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="nome">Nome:</label>
+                    <div class="modal-body text-left">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="col-form-label" for="nome">Nome:</label>
 
-                                        <input class="form-control" id="nome" maxlength="8" name="nome" required type="text"/>
-                                    </div>
-                                </td>
-                            </tr>
+                                    <input class="form-control" id="nome" maxlength="8" name="nome" required type="text"/>
+                                </div>
+                            </div>
+                        </div>
 
-                            <tr>
-                                <td colspan="2">
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="objetos">Tipo de Objeto:</label>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="col-form-label" for="objetos">Tipo de Objeto:</label>
 
-                                        <div id="objetos">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" id="SP" name="tipoObjeto" required type="radio" value="SP"/>
+                                    <div id="objetos">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" id="SP" name="tipoObjeto" required type="radio" value="SP"/>
 
-                                                <label class="form-check-label" for="SP">SP</label>
-                                            </div>
+                                            <label class="form-check-label" for="SP">SP</label>
+                                        </div>
 
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" id="SP_CARGA" name="tipoObjeto" type="radio" value="SP_CARGA"/>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" id="SP_CARGA" name="tipoObjeto" type="radio" value="SP_CARGA"/>
 
-                                                <label class="form-check-label" for="SP_CARGA">SP de Carga</label>
-                                            </div>
+                                            <label class="form-check-label" for="SP_CARGA">SP de Carga</label>
+                                        </div>
 
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" id="BIND" name="tipoObjeto" type="radio" value="BIND"/>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" id="BIND" name="tipoObjeto" type="radio" value="BIND"/>
 
-                                                <label class="form-check-label" for="BIND">BIND</label>
-                                            </div>
+                                            <label class="form-check-label" for="BIND">BIND</label>
+                                        </div>
 
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" id="COBOL" name="tipoObjeto" type="radio" value="COBOL"/>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" id="COBOL" name="tipoObjeto" type="radio" value="COBOL"/>
 
-                                                <label class="form-check-label" for="COBOL">COBOL</label>
-                                            </div>
+                                            <label class="form-check-label" for="COBOL">COBOL</label>
+                                        </div>
 
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" id="JCL" name="tipoObjeto" type="radio" value="JCL"/>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" id="JCL" name="tipoObjeto" type="radio" value="JCL"/>
 
-                                                <label class="form-check-label" for="JCL">JCL</label>
-                                            </div>
+                                            <label class="form-check-label" for="JCL">JCL</label>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </div>
+                        </div>
 
-                            <tr>
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="dataDes">Data Versão DES:</label>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="col-form-label" for="dataDes">Data Versão DES:</label>
 
-                                        <input class="form-control" id="dataDes" name="dataDes" readonly required type="text"/>
-                                    </div>
-                                </td>
+                                    <input class="form-control" id="dataDes" name="dataDes" readonly type="text"/>
+                                </div>
 
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="dataTqs">Data Versão TQS:</label>
+                                <div class="col">
+                                    <label class="col-form-label" for="dataTqs">Data Versão TQS:</label>
 
-                                        <input class="form-control" id="dataTqs" name="dataTqs" readonly type="text"/>
-                                    </div>
-                                </td>
-                            </tr>
+                                    <input class="form-control" id="dataTqs" name="dataTqs" readonly type="text"/>
+                                </div>
+                            </div>
+                        </div>
 
-                            <tr>
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="dataHmp">Data Versão HMP:</label>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="col-form-label" for="dataHmp">Data Versão HMP:</label>
 
-                                        <input class="form-control" id="dataHmp" name="dataHmp" readonly type="text"/>
-                                    </div>
-                                </td>
+                                    <input class="form-control" id="dataHmp" name="dataHmp" readonly type="text"/>
+                                </div>
 
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="dataPrd">Data Versão PRD:</label>
+                                <div class="col">
+                                    <label class="col-form-label" for="dataPrd">Data Versão PRD:</label>
 
-                                        <input class="form-control" id="dataPrd" name="dataPrd" readonly type="text"/>
-                                    </div>
-                                </td>
-                            </tr>
+                                    <input class="form-control" id="dataPrd" name="dataPrd" readonly type="text"/>
+                                </div>
+                            </div>
+                        </div>
 
-                            <tr>
-                                <td colspan="2">
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="usuario">Matrícula (C ou F) do Usuário:</label>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="col-form-label" for="usuario">Matrícula (C ou F) do Usuário:</label>
 
-                                        <input class="form-control" id="usuario" name="usuario" required type="text"/>
-                                    </div>
-                                </td>
-                            </tr>
+                                    <input class="form-control" id="usuario" name="usuario" required type="text"/>
+                                </div>
+                            </div>
+                        </div>
 
-                            <tr>
-                                <td colspan="2">
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="motivo">Motivo da Criação/Modificação:</label>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label class="col-form-label" for="motivo">Motivo da Criação/Modificação:</label>
 
-                                        <textarea class="form-control" id="motivo" name="motivo" required rows="2"></textarea>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                                    <textarea class="form-control" id="motivo" name="motivo" required rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="modal-footer">

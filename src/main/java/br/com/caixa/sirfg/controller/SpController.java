@@ -151,12 +151,6 @@ public class SpController {
         return Constantes.REDIRECT_LISTA_SP;
     }
 
-    @RequestMapping("/findById")
-    @ResponseBody
-    public Optional<Sp> findById(Long id) {
-        return spService.findById(id);
-    }
-
     @PostMapping(value = "/atualizar")
     public String update(Sp sp, InformacaoSp informacaoSp, RedirectAttributes redirectAttributes) {
         String nomeObejto = sp.getNome().toUpperCase();

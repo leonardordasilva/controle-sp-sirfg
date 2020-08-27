@@ -103,6 +103,10 @@ $('document').ready(function () {
         $(this).find('form').trigger('reset');
     });
 
+    $('#ambienteModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    });
+
     $('#mainTable tbody').on('click', 'tr td a#equalizarButton', function (event) {
         event.preventDefault();
         var href = $(this).attr('href');
@@ -121,44 +125,6 @@ $('document').ready(function () {
         });
 
         $('#equalizarModal').modal({
-            keyboard: true
-        });
-    });
-
-    $('#addAmbienteButton').on('click', function (event) {
-        event.preventDefault();
-        $('#formAmbiente').trigger("reset");
-
-        $('#formAmbiente').attr("action", "/ambiente/adicionar");
-        $('#tituloModal').text("Adicionar Ambiente");
-        $('#tituloBotaoModal').text("ADICIONAR");
-
-        $('#ambienteModal').modal({
-            keyboard: true
-        });
-    });
-
-    $('#ambienteTable tbody').on('click', 'tr td a#ambienteEditButton', function (event) {
-        event.preventDefault();
-        var href = $(this).attr('href');
-
-        $.get(href, function (ambiente, status) {
-            $('#idEdit').val(ambiente.id);
-            $('#versaoDesEdit').val(ambiente.versaoDes);
-            $('#dataDesEdit').val(ambiente.dataDesFormatada);
-            $('#versaoTqsEdit').val(ambiente.versaoTqs);
-            $('#dataTqsEdit').val(ambiente.dataTqsFormatada);
-            $('#versaoHmpEdit').val(ambiente.versaoHmp);
-            $('#dataHmpEdit').val(ambiente.dataHmpFormatada);
-            $('#versaoPrdEdit').val(ambiente.versaoPrd);
-            $('#dataPrdEdit').val(ambiente.dataPrdFormatada);
-        });
-
-        $('#formAmbiente').attr("action", "/ambiente/atualizar");
-        $('#tituloModal').text("Alterar Ambiente");
-        $('#tituloBotaoModal').text("ALTERAR");
-
-        $('#ambienteModal').modal({
             keyboard: true
         });
     });

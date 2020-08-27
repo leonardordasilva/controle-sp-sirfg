@@ -59,20 +59,4 @@ public class Ambiente {
                 return null;
         }
     }
-
-    public String getDataDesFormatada() {
-        return DataFormatter.getDataHoraFormatada(dataDes);
-    }
-
-    public String getDataTqsFormatada() {
-        return DataFormatter.getDataHoraFormatada(dataTqs);
-    }
-
-    public String getDataHmpFormatada() {
-        return DataFormatter.getDataHoraFormatada(dataHmp);
-    }
-
-    public String getDataPrdFormatada() {
-        return DataFormatter.getDataHoraFormatada(dataPrd);
-    }
 }
