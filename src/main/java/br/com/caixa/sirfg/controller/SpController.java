@@ -151,6 +151,12 @@ public class SpController {
         return Constantes.REDIRECT_LISTA_SP;
     }
 
+    @RequestMapping("/findById")
+    @ResponseBody
+    public Optional<Sp> findById(Long id) {
+        return spService.findById(id);
+    }
+
     @PostMapping(value = "/atualizar")
     public String update(Sp sp, InformacaoSp informacaoSp, RedirectAttributes redirectAttributes) {
         String nomeObejto = sp.getNome().toUpperCase();
@@ -229,6 +235,6 @@ public class SpController {
     private void equalizar(Sp sp, RedirectAttributes redirectAttributes) {
         spService.createOrUpdate(sp);
 
-        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome() + " equalizado com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome().toUpperCase() + " equalizado com sucesso!");
     }
 }

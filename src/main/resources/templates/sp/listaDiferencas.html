@@ -10,20 +10,20 @@
             <br/><br/><br/>
 
             <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${message}">
-                <div th:text="${message}"/>
-
+                <div th:text="${message}"></div>
                 <button aria-label="Close" class="close" data-dismiss="alert" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
-            <h2>
-                <div th:text="${titulo}"/>
-            </h2>
+            <H2>
+                <div th:text="${titulo}"></div>
+            </H2>
 
             <div th:if="${!sps.empty}">
                 <button class="btn btn-warning" data-target="#spNotaModal" data-toggle="modal" th:if="${ambiente == 'tqsHmp' or ambiente == 'hmpPrd'}"
-                        type="button">Listar Objetos para Nota de Release
+                        type="button">Listar Objetos para Nota de
+                    Release
                 </button>
             </div>
 
@@ -33,34 +33,23 @@
                 <thead>
                 <tr th:align="center">
                     <th>Id</th>
-
                     <th>Nome</th>
-
                     <th>Tipo</th>
-
-                    <th th:text="${coluna1}"/>
-
-                    <th th:text="${coluna2}"/>
-
+                    <th th:text="${coluna1}"></th>
+                    <th th:text="${coluna2}"></th>
                     <th>Ações</th>
                 </tr>
                 </thead>
 
                 <tr th:align="center" th:each="sp:${sps}">
-                    <td th:text="${sp.id}"/>
-
-                    <td th:text="${sp.nome}"/>
-
-                    <td th:text="${sp.tipoObjeto.descricaoObjeto}"/>
-
-                    <td th:text="${sp.getDataFormatada(valorColuna1)}"/>
-
-                    <td th:text="${sp.getDataFormatada(valorColuna2)}"/>
-
+                    <td th:text="${sp.id}"></td>
+                    <td th:text="${sp.nome}"></td>
+                    <td th:text="${sp.tipoObjeto.descricaoObjeto}"></td>
+                    <td th:text="${sp.getDataFormatada(valorColuna1)}"></td>
+                    <td th:text="${sp.getDataFormatada(valorColuna2)}"></td>
                     <td>
-                        <a class="btn btn-primary" data-toggle="tooltip" id="equalizarButton" th:href="@{/findById(id=${sp.id})}" title="Equalizar">
-                            <em class="fas fa-share-square"></em>
-                        </a>
+                        <a class="btn btn-primary" data-toggle="tooltip" id="equalizarButton" th:href="@{/findById(id=${sp.id})}"
+                           title="Equalizar"><em class="fas fa-share-square"></em></a>
                     </td>
                 </tr>
             </table>
@@ -72,12 +61,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addModalLabel">Objetos para adicionar na Nota de Release</h5>
-
                     <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <div class="modal-body">
                     <table class="table table-striped" id="spNotaTable" th:if="${spsNr != null and !spsNr.empty}">
                         <thead>
@@ -87,7 +74,7 @@
                         </thead>
 
                         <tr th:each="sp:${spsNr}">
-                            <td th:text="${sp.nome}"/>
+                            <td th:text="${sp.nome}"></td>
                         </tr>
                     </table>
 
@@ -99,7 +86,7 @@
                         </thead>
 
                         <tr th:each="sp:${spsCargaNr}">
-                            <td th:text="${sp.nome}"/>
+                            <td th:text="${sp.nome}"></td>
                         </tr>
                     </table>
 
@@ -111,7 +98,7 @@
                         </thead>
 
                         <tr th:each="sp:${bindNr}">
-                            <td th:text="${sp.nome}"/>
+                            <td th:text="${sp.nome}"></td>
                         </tr>
                     </table>
 
@@ -123,7 +110,7 @@
                         </thead>
 
                         <tr th:each="sp:${cobolNr}">
-                            <td th:text="${sp.nome}"/>
+                            <td th:text="${sp.nome}"></td>
                         </tr>
                     </table>
 
@@ -135,11 +122,10 @@
                         </thead>
 
                         <tr th:each="sp:${jclNr}">
-                            <td th:text="${sp.nome}"/>
+                            <td th:text="${sp.nome}"></td>
                         </tr>
                     </table>
                 </div>
-
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-dismiss="modal" type="button">SAIR</button>
                 </div>
@@ -150,38 +136,27 @@
     <div class="modal fade" id="equalizarModal" role="dialog">
         <form method="post" th:action="${actionEqualizar}" th:id="formObj">
             <input id="idEqualizar" name="id" type="hidden"/>
-
             <input id="nomeEqualizar" name="nome" type="hidden"/>
-
             <input id="tipoObjetoEqualizar" name="tipoObjeto" type="hidden"/>
-
             <input id="dataDesEqualizar" name="dataDes" type="hidden"/>
-
             <input id="dataTqsEqualizar" name="dataTqs" type="hidden"/>
-
             <input id="dataHmpEqualizar" name="dataHmp" type="hidden"/>
-
             <input id="dataPrdEqualizar" name="dataPrd" type="hidden"/>
-
             <input id="observacaoEqualizar" name="observacao" type="hidden"/>
 
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalLabel">Equalizar Objeto</h5>
-
                         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-
                     <div class="modal-body">
                         <p th:align="center">Deseja equalizar o Objeto <span id="nomeSpEqualizar"></span>?</p>
                     </div>
-
                     <div class="modal-footer">
                         <button class="btn btn-secondary" data-dismiss="modal" type="button">FECHAR</button>
-
                         <button class="btn btn-primary" type="submit">EQUALIZAR</button>
                     </div>
                 </div>

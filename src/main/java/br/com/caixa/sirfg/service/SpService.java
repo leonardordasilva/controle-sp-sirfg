@@ -29,6 +29,10 @@ public class SpService {
         return spRepository.findAll();
     }
 
+    public Optional<Sp> findById(Long id) {
+        return spRepository.findById(id);
+    }
+
     public List<Sp> findAllByNome(String nomeObejto) {
         return spRepository.findAllByNome(nomeObejto);
     }

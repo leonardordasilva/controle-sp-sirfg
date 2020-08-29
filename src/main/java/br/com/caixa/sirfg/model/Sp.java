@@ -80,6 +80,22 @@ public class Sp {
         }
     }
 
+    public String getDataDesFormatada() {
+        return getDataFormatada(AmbienteEnum.DES);
+    }
+
+    public String getDataTqsFormatada() {
+        return getDataFormatada(AmbienteEnum.TQS);
+    }
+
+    public String getDataHmpFormatada() {
+        return getDataFormatada(AmbienteEnum.HMP);
+    }
+
+    public String getDataPrdFormatada() {
+        return getDataFormatada(AmbienteEnum.PRD);
+    }
+
     public String getDataFormatada(LocalDateTime data) {
         return DataFormatter.getDataHoraFormatada(data);
     }

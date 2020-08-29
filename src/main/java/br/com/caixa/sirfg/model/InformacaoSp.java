@@ -1,5 +1,6 @@
 package br.com.caixa.sirfg.model;
 
+import br.com.caixa.sirfg.util.DataFormatter;
 import lombok.Data;
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,5 +38,9 @@ public class InformacaoSp {
     public void prepareStrings() {
         usuario = usuario.toUpperCase();
         motivo = motivo.toUpperCase();
+    }
+
+    public String getDataManipulacaoFormatada() {
+        return DataFormatter.getDataFormatada(dataManipulacao);
     }
 }
