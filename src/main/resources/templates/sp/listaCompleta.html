@@ -7,11 +7,14 @@
 <section class="layout-content" layout:fragment="corpo">
     <div class="container-fluid" role="main">
         <div class="starter-template">
-            <div th:if="${!versaoCadastrada}"><br/><br/><br/></div>
+            <div th:if="${!versaoCadastrada}">
+                <br/><br/><br/>
+            </div>
 
-            <div class="alert alert-dismissible fade show" role="alert"
-                 th:classappend="${success} ? alert-success : alert-warning" th:if="${message}">
-                <div th:text="${message}"></div>
+            <div class="alert alert-dismissible fade show" role="alert" th:classappend="${success} ? alert-success : alert-warning"
+                 th:if="${message}">
+                <div th:text="${message}"/>
+
                 <button aria-label="Close" class="close" data-dismiss="alert" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -20,41 +23,93 @@
             <a class="btn btn-primary" href="#" id="addSpButton">Adicionar Objeto</a>
 
             <br/><br/>
+
             <H2>Lista completa de Objetos</H2>
 
             <table class="display" id="mainTable">
                 <thead>
                 <tr th:align="center">
                     <th>Id</th>
+
                     <th>Nome</th>
+
                     <th>Tipo</th>
+
                     <th>Data versão DES</th>
+
                     <th>Data versão TQS</th>
+
                     <th>Data versão HMP</th>
+
                     <th>Data versão PRD</th>
+
                     <th>Ações</th>
                 </tr>
                 </thead>
 
+                <tbody>
                 <tr th:align="center" th:each="sp:${sps}">
-                    <td th:text="${sp.id}"></td>
-                    <td th:text="${sp.nome}"></td>
-                    <td th:text="${sp.tipoObjeto.descricaoObjeto}"></td>
-                    <td th:text="${sp.dataDesFormatada}"></td>
-                    <td th:text="${sp.dataTqsFormatada}"></td>
-                    <td th:text="${sp.dataHmpFormatada}"></td>
-                    <td th:text="${sp.dataPrdFormatada}"></td>
+                    <td th:text="${sp.id}"/>
+
+                    <td th:text="${sp.nome}"/>
+
+                    <td th:text="${sp.tipoObjeto.descricaoObjeto}"/>
+
+                    <td th:text="${#temporals.format(sp.dataDes, 'dd/MM/yyyy HH:mm')}"/>
+
+                    <td th:text="${#temporals.format(sp.dataTqs, 'dd/MM/yyyy HH:mm')}"/>
+
+                    <td th:text="${#temporals.format(sp.dataHmp, 'dd/MM/yyyy HH:mm')}"/>
+
+                    <td th:text="${#temporals.format(sp.dataPrd, 'dd/MM/yyyy HH:mm')}"/>
+
                     <td>
-                        <span data-target="#historicoModal" data-toggle="modal" th:attrappend="data-target=${sp.id}">
-                            <a class="btn btn-info" data-toggle="tooltip" id="historyButton" title="Histórico de Mudanças"><em
-                                    class="fas fa-history"></em></a>
+                        <a class="btn btn-warning" data-toggle="tooltip" id="editButton" th:href="@{/findById(id=${sp.id})}" title="Editar">
+                            <em class="fas fa-edit"></em>
+                        </a>
+
+                        <span data-target="#deleteModal" data-toggle="modal" th:attrappend="data-target=${sp.id}">
+                            <a class="btn btn-danger" data-toggle="tooltip" id="deleteButton" style="color: #FFFFFF" title="Excluir">
+                                <em class="fas fa-trash"></em>
+                            </a>
                         </span>
 
-                        <a class="btn btn-warning" data-toggle="tooltip" id="editButton"
-                           th:href="@{/findById(id=${sp.id})}" title="Editar"><em class="fas fa-edit"></em></a>
+                        <span data-target="#historicoModal" data-toggle="modal" th:attrappend="data-target=${sp.id}">
+                            <a class="btn btn-info" data-toggle="tooltip" id="historyButton" title="Histórico de Mudanças">
+                                <em class="fas fa-history"></em>
+                            </a>
+                        </span>
 
-                        <a class="btn btn-danger" data-toggle="tooltip" id="deleteButton"
-                           th:href="@{/findById(id=${sp.id})}" title="Excluir"><em class="fas fa-trash"></em></a>
+                        <div aria-hidden="true" aria-labelledby="deleteModalLabel" class="modal fade" id="deleteModal" role="dialog"
+                             th:attrappend="id=${sp.id}">
+                            <form method="post" th:action="@{/excluir}">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Excluir Objeto</h5>
+
+                                            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <p th:align="center">Deseja excluir o Objeto <span th:text="${sp.nome}"/> ?</p>
+                                        </div>
+
+                                        <input class="form-control" id="idDelete" name="id" th:value="${sp.id}" type="hidden"/>
+
+                                        <input class="form-control" id="nomeDelete" name="nome" th:value="${sp.nome}" type="hidden"/>
+
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" data-dismiss="modal" type="button">SAIR</button>
+
+                                            <button class="btn btn-primary" type="submit">EXCLUIR</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
 
                         <div aria-hidden="true" aria-labelledby="historicoModalLabel" class="modal fade" id="historicoModal" role="dialog"
                              th:attrappend="id=${sp.id}">
@@ -62,6 +117,7 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title">Histórico de Mudanças - <span th:text="${sp.nome}"/></h5>
+
                                         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -71,16 +127,22 @@
                                         <thead>
                                         <tr>
                                             <th width="20%">Data</th>
+
                                             <th width="20%">Usuário</th>
+
                                             <th width="60%">Motivo</th>
                                         </tr>
                                         </thead>
 
+                                        <tbody>
                                         <tr th:each="historico:${sp.informacoes}">
-                                            <td th:text="${historico.dataManipulacaoFormatada}"></td>
-                                            <td th:text="${historico.usuario}"></td>
-                                            <td th:text="${historico.motivo}"></td>
+                                            <td th:text="${#temporals.format(historico.dataManipulacao, 'dd/MM/yyyy HH:mm')}"/>
+
+                                            <td th:text="${historico.usuario}"/>
+
+                                            <td th:text="${historico.motivo}"/>
                                         </tr>
+                                        </tbody>
                                     </table>
 
                                     <div class="modal-footer">
@@ -91,155 +153,137 @@
                         </div>
                     </td>
                 </tr>
+                </tbody>
             </table>
         </div>
     </div>
 
-    <div aria-hidden="true" aria-labelledby="modalLabel" class="modal fade" data-toggle="validator" id="modalObj"
-         role="dialog">
+    <div aria-hidden="true" aria-labelledby="modalLabel" class="modal fade" data-toggle="validator" id="modalObj" role="dialog">
         <form method="post" th:id="formObj">
-            <div class="modal-dialog" role="document" style="max-width: 550px;">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalLabel" th:id="tituloModal"/>
+                        <h5 class="modal-title" id="modalLabel" th:id="tituloModal"></h5>
+
                         <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+
                     <div class="modal-body">
-                        <input class="form-control" id="id" name="id" type="hidden">
+                        <input class="form-control" id="id" name="id" type="hidden"/>
 
-                        <table class="table table-borderless">
-                            <tr>
-                                <td colspan="2">
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="nome">Nome:</label>
-                                        <input class="form-control" id="nome" maxlength="8" name="nome" required
-                                               type="text">
-                                    </div>
-                                </td>
-                            </tr>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="col-form-label" for="nome">Nome:</label>
 
-                            <tr>
-                                <td colspan="2">
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="objetos">Tipo de Objeto:</label>
-                                        <div id="objetos">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" id="SP" name="tipoObjeto" required
-                                                       type="radio" value="SP">
-                                                <label class="form-check-label" for="SP">SP</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" id="SP_CARGA" name="tipoObjeto"
-                                                       type="radio" value="SP_CARGA">
-                                                <label class="form-check-label" for="SP_CARGA">SP de Carga</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" id="BIND" name="tipoObjeto" type="radio"
-                                                       value="BIND">
-                                                <label class="form-check-label" for="BIND">BIND</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" id="COBOL" name="tipoObjeto"
-                                                       type="radio" value="COBOL">
-                                                <label class="form-check-label" for="COBOL">COBOL</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" id="JCL" name="tipoObjeto" type="radio"
-                                                       value="JCL">
-                                                <label class="form-check-label" for="JCL">JCL</label>
-                                            </div>
+                                    <input class="form-control" id="nome" maxlength="8" name="nome" required type="text"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="col-form-label" for="objetos">Tipo de Objeto:</label>
+
+                                    <div id="objetos">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" id="SP" name="tipoObjeto" required type="radio" value="SP"/>
+
+                                            <label class="form-check-label" for="SP">SP</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" id="SP_CARGA" name="tipoObjeto" type="radio" value="SP_CARGA"/>
+
+                                            <label class="form-check-label" for="SP_CARGA">SP de Carga</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" id="BIND" name="tipoObjeto" type="radio" value="BIND"/>
+
+                                            <label class="form-check-label" for="BIND">BIND</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" id="COBOL" name="tipoObjeto" type="radio" value="COBOL"/>
+
+                                            <label class="form-check-label" for="COBOL">COBOL</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" id="JCL" name="tipoObjeto" type="radio" value="JCL"/>
+
+                                            <label class="form-check-label" for="JCL">JCL</label>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </div>
+                        </div>
 
-                            <tr>
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="dataDes">Data Versão DES:</label>
-                                        <input class="form-control" id="dataDes" name="dataDes" readonly required
-                                               type="text">
-                                    </div>
-                                </td>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="col-form-label" for="dataDes">Data Versão DES:</label>
 
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="dataTqs">Data Versão TQS:</label>
-                                        <input class="form-control" id="dataTqs" name="dataTqs" readonly type="text">
-                                    </div>
-                                </td>
-                            </tr>
+                                    <input class="form-control" id="dataDes" name="dataDes" readonly type="text"/>
+                                </div>
+                            </div>
 
-                            <tr>
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="dataHmp">Data Versão HMP:</label>
-                                        <input class="form-control" id="dataHmp" name="dataHmp" readonly type="text">
-                                    </div>
-                                </td>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="col-form-label" for="dataTqs">Data Versão TQS:</label>
 
-                                <td>
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="dataPrd">Data Versão PRD:</label>
-                                        <input class="form-control" id="dataPrd" name="dataPrd" readonly type="text">
-                                    </div>
-                                </td>
-                            </tr>
+                                    <input class="form-control" id="dataTqs" name="dataTqs" readonly type="text"/>
+                                </div>
+                            </div>
+                        </div>
 
-                            <tr>
-                                <td colspan="2">
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="usuario">Matrícula (C ou F) do
-                                            Usuário:</label>
-                                        <input class="form-control" id="usuario" name="usuario" required type="text">
-                                    </div>
-                                </td>
-                            </tr>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="col-form-label" for="dataHmp">Data Versão HMP:</label>
 
-                            <tr>
-                                <td colspan="2">
-                                    <div class="form-group">
-                                        <label class="col-form-label" for="motivo">Motivo da
-                                            Criação/Modificação:</label>
-                                        <textarea class="form-control" id="motivo" name="motivo" required
-                                                  rows="2"></textarea>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                                    <input class="form-control" id="dataHmp" name="dataHmp" readonly type="text"/>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="col-form-label" for="dataPrd">Data Versão PRD:</label>
+
+                                    <input class="form-control" id="dataPrd" name="dataPrd" readonly type="text"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="col-form-label" for="usuario">Matrícula (C ou F) do Usuário:</label>
+
+                                    <input class="form-control" id="usuario" name="usuario" required type="text"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="col-form-label" for="motivo">Motivo da Criação/Modificação:</label>
+
+                                    <textarea class="form-control" id="motivo" name="motivo" required rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="modal-footer">
                         <button class="btn btn-secondary" data-dismiss="modal" type="button">SAIR</button>
-                        <button class="btn btn-primary" th:id="tituloBotaoModal" type="submit" />
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
 
-    <div aria-hidden="true" aria-labelledby="deleteModalLabel" class="modal fade" id="deleteModal" role="dialog">
-        <form method="post" th:action="@{/excluir}">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Excluir Objeto</h5>
-                        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p th:align="center">Deseja excluir o Objeto <span id="nomeSpExcluir"></span>?</p>
-                    </div>
-
-                    <input class="form-control" id="idDelete" name="id" type="hidden"/>
-                    <input class="form-control" id="nomeDelete" name="nome" type="hidden"/>
-
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" data-dismiss="modal" type="button">SAIR</button>
-                        <button class="btn btn-primary" type="submit">EXCLUIR</button>
+                        <button class="btn btn-primary" th:id="tituloBotaoModal" type="submit"/>
                     </div>
                 </div>
             </div>

@@ -1,9 +1,7 @@
 package br.com.caixa.sirfg.service;
 
-import br.com.caixa.sirfg.model.InformacaoSp;
 import br.com.caixa.sirfg.model.Sp;
 import br.com.caixa.sirfg.model.enumerator.TipoObjetoEnum;
-import br.com.caixa.sirfg.repository.InformacoesObjetoRepository;
 import br.com.caixa.sirfg.repository.SpRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +12,8 @@ import java.util.Optional;
 public class SpService {
     private final SpRepository spRepository;
 
-    private final InformacoesObjetoRepository objetoRepository;
-
-    public SpService(SpRepository spRepository, InformacoesObjetoRepository objetoRepository) {
+    public SpService(SpRepository spRepository) {
         this.spRepository = spRepository;
-        this.objetoRepository = objetoRepository;
     }
 
     public void createOrUpdate(Sp sp) {
@@ -63,9 +58,5 @@ public class SpService {
         }
 
         return spRetorno;
-    }
-
-    public List<InformacaoSp> obterHistoricoObjeto(Long id) {
-        return objetoRepository.findAllByObjetoId(id);
     }
 }

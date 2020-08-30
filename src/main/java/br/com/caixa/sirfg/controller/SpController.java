@@ -6,6 +6,7 @@ import br.com.caixa.sirfg.model.Sp;
 import br.com.caixa.sirfg.model.enumerator.AmbienteEnum;
 import br.com.caixa.sirfg.model.enumerator.TipoObjetoEnum;
 import br.com.caixa.sirfg.service.AmbienteService;
+import br.com.caixa.sirfg.service.InformacaoSpService;
 import br.com.caixa.sirfg.service.SpService;
 import br.com.caixa.sirfg.util.Constantes;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import java.util.Optional;
 @Controller
 public class SpController {
     private final SpService spService;
+    private final InformacaoSpService informacaoSpService;
     private final AmbienteService ambienteService;
 
     private List<Sp> sps = new ArrayList<>();
@@ -32,8 +34,9 @@ public class SpController {
     private List<Sp> cobolNr = new ArrayList<>();
     private List<Sp> jclNr = new ArrayList<>();
 
-    public SpController(SpService spService, AmbienteService ambienteService) {
+    public SpController(SpService spService, InformacaoSpService informacaoSpService, AmbienteService ambienteService) {
         this.spService = spService;
+        this.informacaoSpService = informacaoSpService;
         this.ambienteService = ambienteService;
     }
 
@@ -172,7 +175,7 @@ public class SpController {
             }
         }
 
-        sp.setInformacoes(spService.obterHistoricoObjeto(sp.getId()));
+        sp.setInformacoes(informacaoSpService.obterHistoricoObjeto(sp.getId()));
         informacaoSp.setId(null);
         informacaoSp.setDataManipulacao(LocalDateTime.now());
         sp.getInformacoes().add(informacaoSp);
@@ -187,12 +190,10 @@ public class SpController {
 
     @PostMapping(value = "/excluir")
     public String delete(Sp sp, RedirectAttributes redirectAttributes) {
-        String nomeSp = sp.getNome();
-
         spService.delete(sp.getId());
 
         redirectAttributes.addFlashAttribute("success", true);
-        redirectAttributes.addFlashAttribute("message", "Objeto " + nomeSp + "  excluído com sucesso!");
+        redirectAttributes.addFlashAttribute("message", "Objeto " + sp.getNome() + "  excluído com sucesso!");
 
         return Constantes.REDIRECT_LISTA_SP;
     }

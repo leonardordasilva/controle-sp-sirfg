@@ -93,10 +93,13 @@ $('document').ready(function () {
 
     $('#addSpButton').on('click', function (event) {
         event.preventDefault();
+
         $('#formObj').trigger("reset");
 
         $('#formObj').attr("action", "/adicionar");
+
         $('#tituloModal').text("Adicionar Objeto");
+
         $('#tituloBotaoModal').text("ADICIONAR");
 
         $('#modalObj').modal({
@@ -106,23 +109,31 @@ $('document').ready(function () {
 
     $('#mainTable tbody').on('click', 'tr td a#editButton', function (event) {
         event.preventDefault();
+
         var href = $(this).attr('href');
 
         $('#formObj').attr("action", "/atualizar");
+
         $('#tituloModal').text("Atualizar Objeto");
+
         $('#tituloBotaoModal').text("ATUALIZAR");
 
         $.get(href, function (sp, status) {
             var tipoObjetoSelecionado = sp.tipoObjeto;
 
-            $('#id').val(sp.id);
-            $('#nome').val(sp.nome);
+            $('#formObj #id').val(sp.id);
+
+            $('#formObj #nome').val(sp.nome);
+
             $('#' + tipoObjetoSelecionado).prop('checked', true);
+
             $('#dataDes').val(sp.dataDesFormatada);
+
             $('#dataTqs').val(sp.dataTqsFormatada);
+
             $('#dataHmp').val(sp.dataHmpFormatada);
+
             $('#dataPrd').val(sp.dataPrdFormatada);
-            $('#observacao').val(sp.observacao);
         });
 
         $('#modalObj').modal({
@@ -130,33 +141,26 @@ $('document').ready(function () {
         });
     });
 
-    $('#mainTable tbody').on('click', 'tr td a#deleteButton', function (event) {
-        event.preventDefault();
-        var href = $(this).attr('href');
-
-        $.get(href, function (sp, status) {
-            $('#idDelete').val(sp.id);
-            $('#nomeDelete').val(sp.nome);
-            $('#nomeSpExcluir').text(sp.nome);
-        });
-
-        $('#deleteModal').modal({
-            keyboard: true
-        });
-    });
-
     $('#mainTable tbody').on('click', 'tr td a#equalizarButton', function (event) {
         event.preventDefault();
+
         var href = $(this).attr('href');
 
         $.get(href, function (sp, status) {
             $('#idEqualizar').val(sp.id);
+
             $('#nomeEqualizar').val(sp.nome);
+
             $('#tipoObjetoEqualizar').val(sp.tipoObjeto);
+
             $('#dataDesEqualizar').val(sp.dataDesFormatada);
+
             $('#dataTqsEqualizar').val(sp.dataTqsFormatada);
+
             $('#dataHmpEqualizar').val(sp.dataHmpFormatada);
+
             $('#dataPrdEqualizar').val(sp.dataPrdFormatada);
+
             $('#observacaoEqualizar').val(sp.observacao);
 
             $('#nomeSpEqualizar').text(sp.nome);
@@ -169,10 +173,10 @@ $('document').ready(function () {
 
     $('#addAmbienteButton').on('click', function (event) {
         event.preventDefault();
-        $('#formAmbiente').trigger("reset");
+        $('#formAmbiente').trigger("reset").attr("action", "/ambiente/adicionar");
 
-        $('#formAmbiente').attr("action", "/ambiente/adicionar");
         $('#tituloModal').text("Adicionar Ambiente");
+
         $('#tituloBotaoModal').text("ADICIONAR");
 
         $('#ambienteModal').modal({
@@ -182,23 +186,34 @@ $('document').ready(function () {
 
     $('#ambienteTable tbody').on('click', 'tr td a#ambienteEditButton', function (event) {
         event.preventDefault();
+
+        $('#formAmbiente').attr("action", "/ambiente/atualizar");
+
+        $('#tituloModal').text("Alterar Ambiente");
+
+        $('#tituloBotaoModal').text("ALTERAR");
+
         var href = $(this).attr('href');
 
         $.get(href, function (ambiente, status) {
             $('#idEdit').val(ambiente.id);
+
             $('#versaoDesEdit').val(ambiente.versaoDes);
+
             $('#dataDesEdit').val(ambiente.dataDesFormatada);
+
             $('#versaoTqsEdit').val(ambiente.versaoTqs);
+
             $('#dataTqsEdit').val(ambiente.dataTqsFormatada);
+
             $('#versaoHmpEdit').val(ambiente.versaoHmp);
+
             $('#dataHmpEdit').val(ambiente.dataHmpFormatada);
+
             $('#versaoPrdEdit').val(ambiente.versaoPrd);
+
             $('#dataPrdEdit').val(ambiente.dataPrdFormatada);
         });
-
-        $('#formAmbiente').attr("action", "/ambiente/atualizar");
-        $('#tituloModal').text("Alterar Ambiente");
-        $('#tituloBotaoModal').text("ALTERAR");
 
         $('#ambienteModal').modal({
             keyboard: true
